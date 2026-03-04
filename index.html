@@ -165,17 +165,17 @@ footer .foot-links a { font-family: 'DM Sans'; font-size: 11px; color: var(--roj
   .hamburger { display: flex; }
   .nav-links {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 64px;
-    left: -20px;
-    right: -20px;
+    left: 0;
+    right: 0;
     background: #fff;
     border-top: 1px solid var(--borde);
     border-bottom: 3px solid var(--rojo);
     flex-direction: column;
     padding: 8px 20px 20px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-    z-index: 99;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 999;
     gap: 2px;
   }
   .nav-links.open { display: flex; }
@@ -699,9 +699,11 @@ function submitForm(e) {
     return false;
   }
 
+  // mode: 'no-cors' necesario para Google Apps Script (no podemos leer respuesta pero los datos sí llegan)
   fetch(SCRIPT_URL, {
     method: 'POST',
-    body: data
+    body: data,
+    mode: 'no-cors'
   }).then(function() {
     showToast();
     form.reset();
