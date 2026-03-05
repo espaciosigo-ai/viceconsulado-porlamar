@@ -154,7 +154,7 @@ footer .foot-links a { font-family: 'DM Sans'; font-size: 11px; color: var(--roj
 .page-desc { font-family: 'DM Sans'; font-size: 14px; color: var(--gris); line-height: 1.6; margin-bottom: 28px; }
 
 /* TIME SLOTS */
-.slots-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 6px; }
+.slots-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 6px; }
 .slot-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 11px 6px; border: 2px solid #d4d0c8; border-radius: 8px; background: white; cursor: pointer; text-align: center; transition: all 0.2s; color: #555; line-height: 1.3; }
 .slot-btn:hover { border-color: var(--rojo); color: var(--rojo); background: rgba(170,21,27,0.04); }
 .slot-btn.selected { border-color: var(--rojo); background: var(--rojo); color: white; }
@@ -216,7 +216,7 @@ footer .foot-links a { font-family: 'DM Sans'; font-size: 11px; color: var(--roj
   .form-input { font-size: 16px; padding: 13px 12px; }
   .form-label { font-size: 13px; }
   .btn[type="submit"] { padding: 15px 20px; font-size: 14px; }
-  .slots-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .slots-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .slot-btn { font-size: 12px; padding: 10px 4px; }
 
   /* LOCATION */
@@ -323,7 +323,7 @@ WhatsApp: +58 424-8429665</div>
       <div class="card" onclick="showSection('tramites');openTramite('pasaportes')"><div class="card-icon">🛂</div><h3>Pasaportes</h3><div class="sub">Solicitud y renovación</div></div>
       <div class="card" onclick="showSection('tramites');openTramite('nacimiento')"><div class="card-icon">👶</div><h3>Nacimiento</h3><div class="sub">Inscripción / Nacionalidad</div></div>
       <div class="card" onclick="showSection('tramites');openTramite('matrimonio')"><div class="card-icon">💍</div><h3>Matrimonio</h3><div class="sub">Inscripción</div></div>
-      <div class="card" onclick="showSection('tramites');openTramite('lmd')"><div class="card-icon">📜</div><h3>Memoria Democrática</h3><div class="sub">Nacionalidad LMD</div></div>
+      <div class="card" onclick="showSection('tramites');openTramite('fevida')"><div class="card-icon">📋</div><h3>Fe de Vida</h3><div class="sub">Certificado de existencia</div></div>
     </div>
     <div style="text-align:center;margin-top:18px">
       <button class="btn btn-outline" onclick="showSection('tramites')">Ver todos los trámites →</button>
@@ -346,25 +346,36 @@ WhatsApp: +58 424-8429665</div>
 
     <div class="tramite-item" id="tramite-pasaportes">
       <div class="tramite-header" onclick="toggleTramite('pasaportes')">
-        <div class="tramite-left"><span class="tramite-icon">🛂</span><div><div class="tramite-title">Pasaportes</div><div class="tramite-subtitle">Solicitud inicial y renovación</div></div></div>
+        <div class="tramite-left"><span class="tramite-icon">🛂</span><div><div class="tramite-title">Pasaportes</div><div class="tramite-subtitle">Primera expedición y renovación</div></div></div>
         <span class="tramite-arrow">▼</span>
       </div>
       <div class="tramite-body"><div class="tramite-content">
+
+        <p style="font-family:'DM Sans';font-size:11px;font-weight:700;color:var(--rojo);text-transform:uppercase;letter-spacing:1.2px;margin:0 0 10px 0;">📋 Primera Expedición</p>
         <ul>
-          <li>Pasaporte anterior (o del progenitor español si es primera vez)</li>
-          <li>DNI en vigor, si se posee</li>
-          <li>Certificado literal de nacimiento (si no tiene pasaporte ni DNI vigente hace +3 años)</li>
-          <li>1 fotografía 32×26mm, color, fondo blanco, de frente</li>
-          <li>Cédula de identidad venezolana (original y copia recortada)</li>
-          <li>Si es menor: cédula de ambos padres (original y copia)</li>
-          <li>Pago de tasa consular</li>
-          <li>Formulario de inscripción como residente + declaración de municipio electoral</li>
+          <li>Certificación literal de nacimiento del Registro Civil español <strong>(original, sello máx. 6 meses)</strong></li>
+          <li>Cédula de Identidad venezolana del interesado (original y copia)</li>
+          <li>Cédula de Identidad de Extranjero <em>o</em> Gaceta de Naturalización del progenitor que transmite la nacionalidad española (fotocopia)</li>
+          <li>Pasaporte del progenitor español (original y fotocopia)</li>
+          <li>Copia de la <strong>página 2</strong> del pasaporte del progenitor español</li>
         </ul>
-        <div class="tramite-note">⚠️ <strong>Mayores de 12 años</strong> requieren toma de huellas dactilares, disponible solo en Caracas o durante operativos especiales en Margarita. Consulte fechas de próximos operativos.<br><br>Se puede renovar cuando quede menos de 1 año para su caducidad. Plazo medio de entrega: 3 semanas desde la solicitud.</div>
+
+        <div style="height:18px"></div>
+
+        <p style="font-family:'DM Sans';font-size:11px;font-weight:700;color:var(--rojo);text-transform:uppercase;letter-spacing:1.2px;margin:0 0 10px 0;">🔄 Renovación</p>
+        <ul>
+          <li>Pasaporte anterior <em>(si fue robado o extraviado: denuncia policial)</em></li>
+          <li><strong>3 fotografías</strong> recientes, 32 × 26 mm, fondo blanco, de frente</li>
+          <li>Cédula de Identidad venezolana del <strong>titular, padre y madre</strong> (original y copia de cada uno)</li>
+          <li>Partida literal de nacimiento (original y copia)</li>
+          <li>Copia de la <strong>página 2</strong> del pasaporte del progenitor español</li>
+          <li><strong>Menores de edad:</strong> deben acudir con padre <em>y</em> madre. Si alguno no comparece: autorización <strong>notariada</strong> (apostillada si el notario no es español)</li>
+        </ul>
+
+        <div class="tramite-note">⚠️ <strong>Mayores de 12 años</strong> requieren toma de huellas dactilares, disponible solo en Caracas o durante operativos especiales en Margarita. Consulte fechas de próximos operativos.<br><br>El trámite debe realizarse <strong>personalmente</strong>. Se puede renovar cuando quede menos de 1 año para su caducidad.</div>
         <div class="tramite-links">
           <a class="tramite-link" href="https://www.exteriores.gob.es/Consulados/caracas/es/Consulado/Paginas/Tasas-consulares.aspx" target="_blank">Consultar tasas ↗</a>
           <a class="tramite-link" href="https://sutramiteconsular.maec.es" target="_blank">Verificar estado de trámite ↗</a>
-          <a class="tramite-link" href="https://www.exteriores.gob.es/Documents/DocumentosSC/Inscripci%C3%B3n%20Consular/20240812%20SOLICITUD%20DE%20INSCRIPCION%20COMO%20RESIDENTE.pdf" target="_blank">Formulario residente ↗</a>
         </div>
         <div style="margin-top:14px"><button class="btn btn-red btn-sm" onclick="showSection('citas')">Agendar cita para pasaporte →</button></div>
       </div></div>
@@ -439,25 +450,6 @@ WhatsApp: +58 424-8429665</div>
       </div></div>
     </div>
 
-    <div class="tramite-item" id="tramite-lmd">
-      <div class="tramite-header" onclick="toggleTramite('lmd')">
-        <div class="tramite-left"><span class="tramite-icon">📜</span><div><div class="tramite-title">Ley de Memoria Democrática</div><div class="tramite-subtitle">Nacionalidad por descendencia</div></div></div>
-        <span class="tramite-arrow">▼</span>
-      </div>
-      <div class="tramite-body"><div class="tramite-content">
-        <ul>
-          <li>El plazo para solicitar credenciales venció el 22/10/2025</li>
-          <li>Quienes ya tienen credenciales pueden programar cita presencial</li>
-          <li>Citas presenciales disponibles a partir de enero 2026</li>
-        </ul>
-        <div class="tramite-note">⚠️ Ya <strong>NO se aceptan solicitudes nuevas</strong>. Solo se atiende a quienes obtuvieron credenciales antes de la fecha límite.</div>
-        <div class="tramite-links">
-          <a class="tramite-link" href="https://www.exteriores.gob.es/DocumentosAuxiliaresSC/Venezuela/CARACAS%20(C)/2025%2006%2009%20Gu%C3%ADa%20aplicaci%C3%B3n%20LMD%20-%20CG%20Caracas.pdf" target="_blank">Guía de tramitación LMD ↗</a>
-          <a class="tramite-link" href="mailto:cog.caracas.citaslmd@maec.es">Correo consultas LMD ↗</a>
-        </div>
-      </div></div>
-    </div>
-
     <div class="tramite-item" id="tramite-fevida">
       <div class="tramite-header" onclick="toggleTramite('fevida')">
         <div class="tramite-left"><span class="tramite-icon">📋</span><div><div class="tramite-title">Fe de Vida</div><div class="tramite-subtitle">Certificado de existencia</div></div></div>
@@ -485,7 +477,7 @@ WhatsApp: +58 424-8429665</div>
           <li><strong>Certificado de residencia</strong></li>
           <li><strong>NIF</strong> — Número de Identificación Fiscal</li>
           <li><strong>NIE</strong> — Número de Identidad de Extranjero</li>
-          <li><strong>Poderes notariales</strong> (inicio en viceconsulado, firma obligatoria en Caracas)</li>
+          <li><strong>Poderes notariales</strong> — se <em>inician</em> en este Viceconsulado pero deben <em>firmarse</em> obligatoriamente en el Consulado General en Caracas</li>
           <li><strong>Conservación / Recuperación</strong> de nacionalidad</li>
           <li><strong>Cambio de censo electoral</strong></li>
         </ul>
@@ -501,8 +493,17 @@ WhatsApp: +58 424-8429665</div>
 
   <div class="no-tramites">
     <h4>⛔ Trámites que NO se realizan en este Viceconsulado</h4>
-    <p>Solo se pueden realizar en el <strong>Consulado General en Caracas</strong>: Visados (todos los tipos), Compulsas de documentos, Certificado de antecedentes penales, Legalización y Apostilla.</p>
-    <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank" style="font-family:'DM Sans';font-size:12px;color:var(--rojo);font-weight:500;display:inline-block;margin-top:10px;text-decoration:none">Ir a la web del Consulado General en Caracas ↗</a>
+    <p style="margin-bottom:10px">Los siguientes trámites <strong>solo se realizan</strong> en el Consulado General en Caracas:</p>
+    <ul style="font-family:'DM Sans';font-size:13px;color:var(--gris);line-height:2;padding-left:18px;margin-bottom:12px">
+      <li>Visados (todos los tipos)</li>
+      <li>Compulsas / Pulsas de documentos</li>
+      <li>Dizados</li>
+      <li>Certificado de antecedentes penales</li>
+      <li>Homologaciones</li>
+      <li>Legalización y Apostilla</li>
+    </ul>
+    <p style="font-family:'DM Sans';font-size:12px;color:var(--gris);line-height:1.7;background:#f8f7f4;border-radius:6px;padding:10px 14px;margin-bottom:10px">ℹ️ <strong>Poderes notariales:</strong> la gestión inicial se realiza en este Viceconsulado, pero la firma debe efectuarse en persona en el Consulado General en Caracas.</p>
+    <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank" style="font-family:'DM Sans';font-size:12px;color:var(--rojo);font-weight:500;display:inline-block;text-decoration:none">Ir a la web del Consulado General en Caracas ↗</a>
   </div>
 </div>
 
@@ -554,19 +555,20 @@ WhatsApp: +58 424-8429665</div>
     <div class="form-group">
       <label class="form-label">Fecha preferida</label>
       <input class="form-input" name="fecha" type="date" id="fechaInput">
-      <div class="form-hint">Horario disponible: Lunes a Viernes · 5 citas por día</div>
+      <div class="form-hint">Horario de citas: Lunes a Viernes · 9:00 AM – 11:30 AM · Máx. 6 citas por día</div>
     </div>
     <div class="form-group" id="horaGroup" style="display:none">
       <label class="form-label">Hora preferida *</label>
       <div class="slots-grid" id="slotsGrid">
-        <button type="button" class="slot-btn" data-hora="08:00" onclick="selectSlot(this)">8:00<br><span style="font-size:10px;font-weight:400;">AM</span></button>
-        <button type="button" class="slot-btn" data-hora="08:45" onclick="selectSlot(this)">8:45<br><span style="font-size:10px;font-weight:400;">AM</span></button>
+        <button type="button" class="slot-btn" data-hora="09:00" onclick="selectSlot(this)">9:00<br><span style="font-size:10px;font-weight:400;">AM</span></button>
         <button type="button" class="slot-btn" data-hora="09:30" onclick="selectSlot(this)">9:30<br><span style="font-size:10px;font-weight:400;">AM</span></button>
-        <button type="button" class="slot-btn" data-hora="10:15" onclick="selectSlot(this)">10:15<br><span style="font-size:10px;font-weight:400;">AM</span></button>
+        <button type="button" class="slot-btn" data-hora="10:00" onclick="selectSlot(this)">10:00<br><span style="font-size:10px;font-weight:400;">AM</span></button>
+        <button type="button" class="slot-btn" data-hora="10:30" onclick="selectSlot(this)">10:30<br><span style="font-size:10px;font-weight:400;">AM</span></button>
         <button type="button" class="slot-btn" data-hora="11:00" onclick="selectSlot(this)">11:00<br><span style="font-size:10px;font-weight:400;">AM</span></button>
+        <button type="button" class="slot-btn" data-hora="11:30" onclick="selectSlot(this)">11:30<br><span style="font-size:10px;font-weight:400;">AM</span></button>
       </div>
       <input type="hidden" name="hora" id="horaInput">
-      <div class="form-hint">Duración: 45 min por cita · Su hora queda sujeta a confirmación</div>
+      <div class="form-hint">Duración: 30 min por cita · Su hora queda sujeta a confirmación</div>
     </div>
     <div class="form-group">
       <label class="form-label">Observaciones adicionales</label>
