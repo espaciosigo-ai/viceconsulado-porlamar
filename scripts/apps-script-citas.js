@@ -16,10 +16,10 @@ var CONFIG = {
   CALENDAR_NAME:       "Citas Viceconsulado",
   EMAIL_CONSULADO:     "espaciosigo@gmail.com",   // ← cambiar a ch.porlamar@maec.es en producción
   EMAIL_NOMBRE:        "Viceconsulado de España — Nueva Esparta",
-  DURACION_CITA:       45,   // minutos
-  MAX_CITAS_DIA:       5,    // 5 citas × 45 min = 8:00, 8:45, 9:30, 10:15, 11:00
-  HORA_APERTURA:       8,    // 8:00 AM
-  HORA_CIERRE:         12,   // 12:00 PM
+  DURACION_CITA:       30,   // minutos
+  MAX_CITAS_DIA:       6,    // 6 citas × 30 min = 9:00, 9:30, 10:00, 10:30, 11:00, 11:30
+  HORA_APERTURA:       9,    // 9:00 AM (hora real de inicio de citas)
+  HORA_CIERRE:         12,   // 12:00 PM (última cita 11:30 → termina 12:00)
   WEB_URL:             "https://espaciosigo-ai.github.io/viceconsulado-porlamar/",
   WHATSAPP:            "+58 424-8429665",
 };
@@ -489,7 +489,7 @@ function testCompleto() {
       email:         CONFIG.EMAIL_CONSULADO,
       tramite:       "Pasaporte — Renovación",
       fecha:         Utilities.formatDate(new Date(new Date().getTime() + 7*24*3600*1000), "America/Caracas", "yyyy-MM-dd"),
-      hora:          "08:45",
+      hora:          "09:00",
       observaciones: "PRUEBA AUTOMÁTICA — borrar"
     }
   };
