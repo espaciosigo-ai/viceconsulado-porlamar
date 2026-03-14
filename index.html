@@ -280,7 +280,7 @@ footer .foot-links a { font-family: 'DM Sans'; font-size: 11px; color: var(--roj
   <section class="hero">
     <div class="hero-badge">Ministerio de Asuntos Exteriores, Unión Europea y Cooperación</div>
     <h1>Viceconsulado Honorario<br>de España</h1>
-    <p>Isla de Margarita — Estado Nueva Esparta, Venezuela</p>
+    <p>Porlamar — Estado Nueva Esparta, Venezuela</p>
     <div class="hero-btns">
       <button class="btn btn-gold" onclick="showSection('tramites')">Consultar Trámites</button>
       <button class="btn btn-red" onclick="showSection('citas')">Agendar Cita</button>
@@ -306,7 +306,11 @@ footer .foot-links a { font-family: 'DM Sans'; font-size: 11px; color: var(--roj
       <!-- CAMBIAR: Dirección real -->
       <div class="desc">Porlamar, Isla de Margarita
 Estado Nueva Esparta</div>
-      <div class="small">Ver mapa y dirección →</div>
+      <div class="small" style="margin-top:8px;line-height:1.6">
+        <span style="display:block"><strong>Circunscripción:</strong> Estado Nueva Esparta</span>
+        <span style="display:block"><strong>Vicecónsul Honorario:</strong> D. Manuel Leiros Pampinella</span>
+      </div>
+      <div class="small" style="margin-top:6px">Ver mapa y dirección →</div>
     </div>
     <div class="card">
       <div class="card-icon">📞</div>
@@ -328,6 +332,12 @@ WhatsApp: +58 424-8429665</div>
     <div style="text-align:center;margin-top:18px">
       <button class="btn btn-outline" onclick="showSection('tramites')">Ver todos los trámites →</button>
     </div>
+  </div>
+
+  <div class="notice" style="background:linear-gradient(135deg,#fff8e1,#fff3cd);border-left:4px solid var(--dorado);margin-bottom:16px">
+    <h4 style="color:#7a5c00">📅 Próxima Jornada de Pasaporte</h4>
+    <p style="color:#5a4200;font-weight:600;font-size:15px;margin-top:6px">18 de Junio de 2026</p>
+    <p style="color:#5a4200;font-size:13px;margin-top:4px">Reserve su cita con anticipación. Plazas limitadas.</p>
   </div>
 
   <div class="notice">
@@ -357,7 +367,7 @@ WhatsApp: +58 424-8429665</div>
           <li>Cédula de Identidad venezolana del interesado (original y copia)</li>
           <li>Cédula de Identidad de Extranjero <em>o</em> Gaceta de Naturalización del progenitor que transmite la nacionalidad española (fotocopia)</li>
           <li>Pasaporte del progenitor español (original y fotocopia)</li>
-          <li>Copia de la <strong>página 2</strong> del pasaporte del progenitor español</li>
+          <li>Copia de la <strong>página 2</strong> del pasaporte del progenitor español <em>(menores de edad)</em></li>
         </ul>
 
         <div style="height:18px"></div>
@@ -393,8 +403,20 @@ WhatsApp: +58 424-8429665</div>
           <li>Acta de nacimiento venezolana apostillada (Apostilla de La Haya)</li>
           <li>Cédula de identidad del interesado (original y copia centrada)</li>
           <li>2 fotografías 3×4cm, fondo blanco, cara al 80%</li>
-          <li><strong>Progenitor español:</strong> literal de nacimiento, pasaporte español, cédula venezolana</li>
-          <li><strong>Progenitor extranjero:</strong> cédula o pasaporte + acta de nacimiento</li>
+          <li><strong>Progenitor español:</strong>
+            <ul style="margin-top:6px;margin-left:16px;line-height:1.8">
+              <li>Original y copia de la literal.</li>
+              <li>Original y copia del pasaporte español (páginas 2 y 7).</li>
+              <li>Cédula de identidad venezolana (original y copia).</li>
+              <li>Si es naturalizado venezolano, copia de la Gaceta Oficial o datos filiatorios.</li>
+            </ul>
+          </li>
+          <li><strong>Progenitor extranjero:</strong>
+            <ul style="margin-top:6px;margin-left:16px;line-height:1.8">
+              <li>Original y copia de la cédula venezolana.</li>
+              <li>Acta de nacimiento (copia certificada).</li>
+            </ul>
+          </li>
           <li>Libro de Familia o Acta de Matrimonio (si existe matrimonio entre los padres)</li>
         </ul>
         <div class="tramite-note">✅ Trámite <strong>GRATUITO</strong>. Documentos deben tener máximo 5 años de emitidos. Excepción: literales inscritas en el Consulado de Caracas no vencen. Debe acudir el interesado personalmente.</div>
@@ -457,6 +479,7 @@ WhatsApp: +58 424-8429665</div>
       </div>
       <div class="tramite-body"><div class="tramite-content">
         <ul>
+          <li>Certificado médico no mayor a 3 meses.</li>
           <li>Pasaporte español (original y copia, páginas 2, 3, 6 y 7)</li>
           <li>Cédula de identidad (original y copia)</li>
         </ul>
@@ -496,7 +519,6 @@ WhatsApp: +58 424-8429665</div>
     <p style="margin-bottom:10px">Los siguientes trámites <strong>solo se realizan</strong> en el Consulado General en Caracas:</p>
     <ul style="font-family:'DM Sans';font-size:13px;color:var(--gris);line-height:2;padding-left:18px;margin-bottom:12px">
       <li>Visados (todos los tipos)</li>
-      <li>Compulsas / Pulsas de documentos</li>
       <li>Dizados</li>
       <li>Certificado de antecedentes penales</li>
       <li>Homologaciones</li>
