@@ -14,7 +14,7 @@
 // ====== CONFIGURACIÓN ======
 var CONFIG = {
   CALENDAR_NAME:       "Citas Viceconsulado",
-  EMAIL_CONSULADO:     "espaciosigo@gmail.com",   // ← cambiar a ch.porlamar@maec.es en producción
+  EMAIL_CONSULADO:     "espaciosigo@gmail.com",   // ← PENDIENTE DE CAMBIO a ch.porlamar@maec.es
   EMAIL_NOMBRE:        "Viceconsulado de España — Nueva Esparta",
   DURACION_CITA:       30,   // minutos
   MAX_CITAS_DIA:       6,    // 6 citas × 30 min = 9:00, 9:30, 10:00, 10:30, 11:00, 11:30
@@ -22,6 +22,12 @@ var CONFIG = {
   HORA_CIERRE:         12,   // 12:00 PM (última cita 11:30 → termina 12:00)
   WEB_URL:             "https://espaciosigo-ai.github.io/viceconsulado-porlamar/",
   WHATSAPP:            "+58 424-8429665",
+
+  // ── Colores de marca (iguales a la web) ──────────────────
+  COLOR_ROJO:          "#AA151B",
+  COLOR_DORADO:        "#F8CE46",
+  COLOR_FONDO:         "#FAFAF7",
+  COLOR_BORDE:         "#e8e5df",
 };
 // ===========================
 
@@ -364,13 +370,40 @@ function crearEncabezados() {
   var cols = ["Fecha Registro","Nombre Completo","Cédula / Pasaporte","Teléfono","Correo",
               "Trámite","Fecha Preferida","Observaciones","Estado","Hora Asignada"];
 
-  sheet.getRange(1, 1, 1, cols.length).setValues([cols]);
-  var hdr = sheet.getRange(1, 1, 1, cols.length);
-  hdr.setFontWeight("bold").setBackground("#AA151B").setFontColor("white");
+  // Insertar fila de título (fila 1) y encabezados de columna (fila 2)
+  sheet.insertRowBefore(1);
+  sheet.insertRowBefore(1);
 
-  var anchos = [150, 200, 150, 130, 210, 200, 130, 260, 130, 130];
+  // Fila 1 — Título principal
+  sheet.getRange(1, 1, 1, cols.length).merge()
+    .setValue("🇪🇸  Citas Viceconsulado Honorario de España — Nueva Esparta")
+    .setBackground(CONFIG.COLOR_ROJO)
+    .setFontColor("white")
+    .setFontFamily("Arial")
+    .setFontSize(13)
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center")
+    .setVerticalAlignment("middle");
+  sheet.setRowHeight(1, 38);
+
+  // Franja dorada decorativa debajo del título (usa borde inferior)
+  sheet.getRange(1, 1, 1, cols.length)
+    .setBorder(false, false, true, false, false, false, CONFIG.COLOR_DORADO, SpreadsheetApp.BorderStyle.SOLID_THICK);
+
+  // Fila 2 — Encabezados de columna
+  sheet.getRange(2, 1, 1, cols.length).setValues([cols])
+    .setBackground("#2C0709")
+    .setFontColor(CONFIG.COLOR_DORADO)
+    .setFontFamily("Arial")
+    .setFontSize(10)
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center")
+    .setVerticalAlignment("middle");
+  sheet.setRowHeight(2, 30);
+
+  var anchos = [150, 200, 140, 130, 210, 200, 130, 260, 120, 120];
   anchos.forEach(function(w, i) { sheet.setColumnWidth(i + 1, w); });
-  sheet.setFrozenRows(1);
+  sheet.setFrozenRows(2);
 
   // Aplicar formato dinámico
   configurarFormato(sheet);
@@ -388,8 +421,101 @@ function crearEncabezados() {
 }
 
 // -------------------------------------------------------
-// configurarFormato: aplica dropdown y colores al Sheet
-// Ejecutar TAMBIÉN en sheets existentes para actualizar el formato
+// formatearSheetExistente: aplica el diseño visual al sheet
+// actual SIN borrar los datos (ejecutar en el sheet ya existente)
+// -------------------------------------------------------
+function formatearSheetExistente() {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+  var lastRow  = Math.max(sheet.getLastRow(), 2);
+  var NUM_COLS = 10;
+
+  // ── 1. Título (fila 1) ───────────────────────────────────
+  // Si fila 1 col A ya tiene encabezado de datos, insertar 2 filas nuevas al inicio
+  var primerValor = sheet.getRange(1,1).getValue().toString();
+  var yaFormateado = (primerValor.indexOf("🇪🇸") !== -1 || primerValor.indexOf("Viceconsulado") !== -1);
+  if (!yaFormateado) {
+    sheet.insertRowsBefore(1, 2);
+    lastRow += 2;
+  }
+
+  // Fila 1 — barra de título
+  sheet.getRange(1, 1, 1, NUM_COLS).mergeAcross()
+    .setValue("🇪🇸  Citas Viceconsulado Honorario de España — Nueva Esparta")
+    .setBackground(CONFIG.COLOR_ROJO)
+    .setFontColor("white")
+    .setFontFamily("Arial")
+    .setFontSize(13)
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center")
+    .setVerticalAlignment("middle");
+  sheet.setRowHeight(1, 38);
+  sheet.getRange(1, 1, 1, NUM_COLS)
+    .setBorder(false, false, true, false, false, false, CONFIG.COLOR_DORADO, SpreadsheetApp.BorderStyle.SOLID_THICK);
+
+  // ── 2. Fila de encabezados (fila 2) ────────────────────────
+  var cols = ["Fecha Registro","Nombre Completo","Cédula / Pasaporte","Teléfono","Correo",
+              "Trámite","Fecha Preferida","Observaciones","Estado","Hora Asignada"];
+  sheet.getRange(2, 1, 1, NUM_COLS).setValues([cols])
+    .setBackground("#2C0709")
+    .setFontColor(CONFIG.COLOR_DORADO)
+    .setFontFamily("Arial")
+    .setFontSize(10)
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center")
+    .setVerticalAlignment("middle");
+  sheet.setRowHeight(2, 30);
+
+  // ── 3. Anchos de columna ───────────────────────────────────
+  var anchos = [150, 200, 140, 130, 210, 200, 130, 260, 120, 120];
+  anchos.forEach(function(w, i) { sheet.setColumnWidth(i + 1, w); });
+
+  // ── 4. Filas de datos: fuente y altura ────────────────────
+  if (lastRow >= 3) {
+    sheet.getRange(3, 1, lastRow - 2, NUM_COLS)
+      .setFontFamily("Arial")
+      .setFontSize(11)
+      .setVerticalAlignment("middle");
+
+    // Altura uniforme de filas de datos
+    for (var r = 3; r <= lastRow; r++) {
+      sheet.setRowHeight(r, 26);
+    }
+
+    // Observaciones (col 8): wrap text
+    sheet.getRange(3, 8, lastRow - 2, 1).setWrap(true);
+
+    // Franjas alternas: blanco y crema
+    for (var i = 3; i <= lastRow; i++) {
+      var bg = (i % 2 === 1) ? "#FFFFFF" : CONFIG.COLOR_FONDO;
+      sheet.getRange(i, 1, 1, NUM_COLS).setBackground(bg);
+    }
+
+    // Bordes internos suaves en toda la tabla de datos
+    sheet.getRange(3, 1, lastRow - 2, NUM_COLS)
+      .setBorder(true, true, true, true, true, true, "#D5D0C8", SpreadsheetApp.BorderStyle.SOLID);
+  }
+
+  // ── 5. Borde exterior de toda la tabla ────────────────────
+  sheet.getRange(1, 1, lastRow, NUM_COLS)
+    .setBorder(true, true, true, true, false, false, CONFIG.COLOR_ROJO, SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
+
+  // ── 6. Congelar 2 filas ────────────────────────────────────
+  sheet.setFrozenRows(2);
+
+  // ── 7. Aplicar el resto del formato (dropdown, condicional, fechas) ──
+  configurarFormato(sheet);
+
+  // ── 8. Nombre del sheet ────────────────────────────────────
+  sheet.setName("Citas");
+
+  Logger.log("✅ Formato visual aplicado correctamente.");
+}
+
+// -------------------------------------------------------
+// configurarFormato: dropdown + formato condicional por Estado
+// Se llama desde crearEncabezados y formatearSheetExistente
+// Los datos empiezan en fila 3 (fila 1=título, fila 2=headers)
 // -------------------------------------------------------
 function configurarFormato(sheet) {
   if (!sheet) {
@@ -397,84 +523,63 @@ function configurarFormato(sheet) {
           || SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   }
 
-  // Dropdown para columna Estado (I = col 9)
+  // Dropdown para columna Estado (I = col 9), datos desde fila 3
   var estadoRule = SpreadsheetApp.newDataValidation()
     .requireValueInList(["Pendiente","Confirmada","Cancelada","Atendida"], true)
     .setAllowInvalid(false)
     .setHelpText("Seleccione el estado de la cita")
     .build();
-  sheet.getRange("I2:I1000").setDataValidation(estadoRule);
+  sheet.getRange("I3:I1000").setDataValidation(estadoRule);
 
-  // Alineación centrada en columna Estado y Hora
-  sheet.getRange("I2:J1000").setHorizontalAlignment("center");
+  // Alineación
+  sheet.getRange("I3:J1000").setHorizontalAlignment("center");
+  sheet.getRange("C3:D1000").setHorizontalAlignment("center");
+  sheet.getRange("G3:G1000").setHorizontalAlignment("center");
 
-  // Formato de fecha en columna A
-  sheet.getRange("A2:A1000").setNumberFormat("dd/MM/yyyy HH:mm");
+  // Formatos de datos (evitar que Google re-interprete)
+  sheet.getRange("A3:A1000").setNumberFormat("dd/MM/yyyy HH:mm");
+  sheet.getRange("G3:G1000").setNumberFormat("dd/MM/yyyy");
+  sheet.getRange("J3:J1000").setNumberFormat("HH:mm");
+  sheet.getRange("C3:C1000").setNumberFormat("@");
+  sheet.getRange("D3:D1000").setNumberFormat("@");
+  sheet.getRange("E3:E1000").setNumberFormat("@");
 
-  // Formato de fecha en columna G
-  sheet.getRange("G2:G1000").setNumberFormat("dd/MM/yyyy");
-
-  // Formato de hora en columna J
-  sheet.getRange("J2:J1000").setNumberFormat("HH:mm");
-
-  // Formato centrado columna J
-  sheet.getRange("J2:J1000").setHorizontalAlignment("center");
-
-  // Formato texto en columna C (cédula - evitar que interprete números)
-  sheet.getRange("C2:C1000").setNumberFormat("@");
-
-  // Formato texto en columna D (teléfono)
-  sheet.getRange("D2:D1000").setNumberFormat("@");
-
-  // Formato texto en columna E (correo)
-  sheet.getRange("E2:E1000").setNumberFormat("@");
-
-  // Formato de fuente para toda la tabla
-  sheet.getRange("A2:J1000").setFontFamily("Arial").setFontSize(11);
-
-  // Eliminar reglas previas y aplicar formato condicional por Estado
+  // ── Formato condicional por Estado (toda la fila) ──────
+  // La regla usa "la celda en la columna I de esa fila contiene X"
+  // → usamos fórmula personalizada para colorear la fila completa
   var rules = [];
 
+  // Pendiente → fondo crema-naranja suave
   rules.push(SpreadsheetApp.newConditionalFormatRule()
-    .whenTextEqualTo("Pendiente")
-    .setBackground("#FFF3E0").setFontColor("#E65100").setBold(false)
-    .setRanges([sheet.getRange("A2:J1000")])
+    .whenFormulaSatisfied('=$I3="Pendiente"')
+    .setBackground("#FFF8EE").setFontColor("#8B4513").setBold(false)
+    .setRanges([sheet.getRange("A3:J1000")])
     .build());
 
+  // Confirmada → fondo verde suave
   rules.push(SpreadsheetApp.newConditionalFormatRule()
-    .whenTextEqualTo("Confirmada")
-    .setBackground("#E8F5E9").setFontColor("#2E7D32").setBold(false)
-    .setRanges([sheet.getRange("A2:J1000")])
+    .whenFormulaSatisfied('=$I3="Confirmada"')
+    .setBackground("#EDFAF1").setFontColor("#1B6B35").setBold(false)
+    .setRanges([sheet.getRange("A3:J1000")])
     .build());
 
+  // Cancelada → fondo rosado suave
   rules.push(SpreadsheetApp.newConditionalFormatRule()
-    .whenTextEqualTo("Cancelada")
-    .setBackground("#FFEBEE").setFontColor("#C62828").setBold(false)
-    .setRanges([sheet.getRange("A2:J1000")])
+    .whenFormulaSatisfied('=$I3="Cancelada"')
+    .setBackground("#FFF0F0").setFontColor("#991B1B").setBold(false)
+    .setRanges([sheet.getRange("A3:J1000")])
     .build());
 
+  // Atendida → fondo azul hielo
   rules.push(SpreadsheetApp.newConditionalFormatRule()
-    .whenTextEqualTo("Atendida")
-    .setBackground("#E3F2FD").setFontColor("#1565C0").setBold(false)
-    .setRanges([sheet.getRange("A2:J1000")])
+    .whenFormulaSatisfied('=$I3="Atendida"')
+    .setBackground("#EFF6FF").setFontColor("#1E4FA0").setBold(false)
+    .setRanges([sheet.getRange("A3:J1000")])
     .build());
 
   sheet.setConditionalFormatRules(rules);
 
-  // Bandas de color alternas (zebra stripes)
-  try {
-    var bandedRange = sheet.getRange("A1:J1000");
-    var existingBandings = bandedRange.getBandings();
-    existingBandings.forEach(function(b) { b.remove(); });
-    bandedRange.applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY, true, false);
-  } catch (err) {
-    Logger.log("Banding (ignorar si ya existe): " + err);
-  }
-
-  // Bordes en encabezado
-  sheet.getRange(1, 1, 1, 10).setBorder(true, true, true, true, true, true, "#AA151B", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
-
-  Logger.log("Formato configurado: dropdown Estado, colores condicionales, bandas alternas.");
+  Logger.log("Formato configurado: dropdown Estado, colores condicionales por fila.");
 }
 
 // -------------------------------------------------------
