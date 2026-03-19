@@ -1394,7 +1394,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
     <div class="info-block">
       <div class="info-block-title">Contacto</div>
       <!-- CAMBIAR: datos reales -->
-      <div><a href="mailto:ch.porlamar@maec.es" style="color:var(--rojo);text-decoration:none;font-weight:500">ch.porlamar@maec.es</a></div>
+      <div><a href="mailto:viceconsuladomargarita@gmail.com" style="color:var(--rojo);text-decoration:none;font-weight:500">viceconsuladomargarita@gmail.com</a></div>
       <div>+58 424-8429665</div>
       <div style="color:#999;font-size:13px">@viceconsulado_espana_ne</div>
       <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
@@ -1450,7 +1450,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <div class="footer-col">
         <div class="footer-col-title">Contacto</div>
         <!-- CAMBIAR: correo y WhatsApp reales -->
-        <div><a href="mailto:ch.porlamar@maec.es">ch.porlamar@maec.es</a></div>
+        <div><a href="mailto:viceconsuladomargarita@gmail.com">viceconsuladomargarita@gmail.com</a></div>
         <div><a href="https://wa.me/584248429665">WhatsApp: +58 424-8429665</a></div>
         <div style="margin-top:12px">
           <a class="btn btn-green btn-sm" href="https://wa.me/584248429665" target="_blank" style="display:inline-flex;color:white">
@@ -1504,6 +1504,7 @@ function showSection(id) {
   document.getElementById('waFloat').style.display = id === 'citas' ? 'none' : 'flex';
   closeMenu();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window._updateNav) window._updateNav();
 }
 
 document.querySelectorAll('.nav-btn').forEach(function(btn) {
@@ -1532,10 +1533,14 @@ document.addEventListener('click', function(e) {
 (function() {
   var nav = document.querySelector('.nav');
   function updateNav() {
-    nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+    var activeSection = document.querySelector('.section.active');
+    var isInicio = !activeSection || activeSection.id === 'sec-inicio';
+    nav.classList.toggle('nav--scrolled', !isInicio || window.scrollY > 60);
   }
   window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav(); // estado inicial si se carga con scroll
+  // Llamar updateNav cada vez que cambie de sección
+  window._updateNav = updateNav;
+  updateNav();
 })();
 
 // ============================================
