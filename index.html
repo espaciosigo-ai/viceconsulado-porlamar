@@ -6,8 +6,8 @@
 <meta name="description" content="Viceconsulado Honorario de España en Nueva Esparta, Venezuela. Información de trámites consulares, requisitos y citas previas.">
 <title>Viceconsulado Honorario de España — Nueva Esparta, Venezuela</title>
 
-<!-- Favicon: escudo simplificado España -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 72'><defs><clipPath id='sc'><path d='M3,3 H57 V52 Q30,70 3,52 Z'/></clipPath></defs><rect x='0' y='0' width='60' height='22' clip-path='url(%23sc)' fill='%23AA151B'/><rect x='0' y='22' width='60' height='22' clip-path='url(%23sc)' fill='%23F8CE46'/><rect x='0' y='44' width='60' height='30' clip-path='url(%23sc)' fill='%23AA151B'/><path d='M3,3 H57 V52 Q30,70 3,52 Z' fill='none' stroke='%23C9A227' stroke-width='3'/><rect x='22' y='0' width='16' height='5' rx='1' fill='%23C9A227'/><rect x='18' y='-2' width='5' height='7' rx='1' fill='%23C9A227'/><rect x='28' y='-2' width='4' height='7' rx='1' fill='%23C9A227'/><rect x='37' y='-2' width='5' height='7' rx='1' fill='%23C9A227'/></svg>">
+<!-- Favicon: logo oficial del Viceconsulado -->
+<link rel="icon" href="Logo.jpeg" type="image/jpeg">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -46,7 +46,7 @@ a { color: var(--rojo); }
 .nav { background: #fff; border-bottom: 1px solid var(--borde); position: sticky; top: 0; z-index: 100; padding: 0 20px; }
 .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; position: relative; }
 .nav-logo { display: flex; align-items: center; gap: 14px; cursor: pointer; min-width: 0; text-decoration: none; }
-.nav-shield { width: 38px; height: 46px; flex-shrink: 0; }
+.nav-shield { width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; object-fit: cover; }
 .nav-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; line-height: 1.3; color: var(--texto); }
 .nav-sub { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gris-claro); }
 .nav-links { display: flex; gap: 6px; }
@@ -111,9 +111,12 @@ a { color: var(--rojo); }
   justify-content: center;
 }
 .hero-shield {
-  width: 140px;
-  height: auto;
-  filter: drop-shadow(0 6px 24px rgba(0,0,0,0.35));
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0 6px 28px rgba(0,0,0,0.45));
+  border: 3px solid rgba(248,206,70,0.4);
 }
 .hero-text { flex: 1; }
 .hero-badge {
@@ -498,7 +501,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
 .footer-col .schedule-row span:last-child { color: white; font-weight: 500; }
 .footer-legal { padding: 30px 20px 36px; text-align: center; }
 .footer-logo-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
-.footer-shield { width: 26px; height: 32px; }
+.footer-shield { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
 .footer-name { font-family: 'DM Sans'; font-size: 13px; font-weight: 600; color: white; }
 .footer-text { font-family: 'DM Sans'; font-size: 12px; color: #555; line-height: 1.9; }
 .foot-links { margin-top: 14px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
@@ -582,7 +585,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
   /* HERO */
   .hero { padding: 40px 20px 48px; }
   .hero-inner { flex-direction: column; gap: 28px; text-align: center; }
-  .hero-shield { width: 100px; }
+  .hero-shield { width: 130px; height: 130px; }
   .hero-divider { margin: 14px auto; }
   .hero h1 { font-size: 30px; }
 
@@ -726,7 +729,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
 <nav class="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="#" onclick="showSection('inicio');return false;">
-      <svg class="nav-shield" aria-label="Escudo de España"><use href="#escudo-espana"/></svg>
+      <img class="nav-shield" src="Logo.jpeg" alt="Logo Viceconsulado Honorario de España en Porlamar">
       <div>
         <div class="nav-title">Viceconsulado Honorario de España</div>
         <div class="nav-sub">Nueva Esparta, Venezuela</div>
@@ -749,10 +752,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-logo-wrap">
-        <!-- CAMBIAR: reemplazar con imagen oficial cuando se facilite -->
-        <svg class="hero-shield" aria-label="Escudo del Viceconsulado Honorario de España">
-          <use href="#escudo-espana"/>
-        </svg>
+        <img class="hero-shield" src="Logo.jpeg" alt="Escudo Viceconsulado Honorario de España en Porlamar">
       </div>
       <div class="hero-text">
         <div class="hero-badge">Ministerio de Asuntos Exteriores, Unión Europea y Cooperación</div>
@@ -1271,7 +1271,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
   <!-- Legal -->
   <div class="footer-legal">
     <div class="footer-logo-row">
-      <svg class="footer-shield" aria-label="Escudo de España"><use href="#escudo-espana"/></svg>
+      <img class="footer-shield" src="Logo.jpeg" alt="Logo Viceconsulado">
       <span class="footer-name">Viceconsulado Honorario de España en Nueva Esparta</span>
     </div>
     <p class="footer-text">
