@@ -6,8 +6,9 @@
 <meta name="description" content="Viceconsulado Honorario de España en Nueva Esparta, Venezuela. Información de trámites consulares, requisitos y citas previas.">
 <title>Viceconsulado Honorario de España — Nueva Esparta, Venezuela</title>
 
-<!-- Favicon: escudo España (SVG, sin fondo blanco) -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 96'><defs><clipPath id='s'><path d='M4,4 H76 V72 Q40,94 4,72 Z'/></clipPath></defs><rect x='0' y='0' width='40' height='38' clip-path='url(%23s)' fill='%23AA151B'/><rect x='10' y='12' width='20' height='22' fill='%23F8CE46' clip-path='url(%23s)'/><rect x='8' y='10' width='5' height='8' fill='%23F8CE46' clip-path='url(%23s)'/><rect x='18' y='10' width='4' height='8' fill='%23F8CE46' clip-path='url(%23s)'/><rect x='27' y='10' width='5' height='8' fill='%23F8CE46' clip-path='url(%23s)'/><rect x='15' y='24' width='5' height='10' fill='%23AA151B' clip-path='url(%23s)'/><rect x='40' y='0' width='40' height='38' clip-path='url(%23s)' fill='%23f0f0f0'/><ellipse cx='60' cy='14' rx='7' ry='6' fill='%238B2FC4' clip-path='url(%23s)'/><rect x='54' y='20' width='12' height='14' rx='2' fill='%238B2FC4' clip-path='url(%23s)'/><rect x='0' y='38' width='40' height='36' clip-path='url(%23s)' fill='%23F8CE46'/><rect x='4' y='38' width='5' height='36' clip-path='url(%23s)' fill='%23AA151B'/><rect x='13' y='38' width='5' height='36' clip-path='url(%23s)' fill='%23AA151B'/><rect x='22' y='38' width='5' height='36' clip-path='url(%23s)' fill='%23AA151B'/><rect x='31' y='38' width='5' height='36' clip-path='url(%23s)' fill='%23AA151B'/><rect x='40' y='38' width='40' height='36' clip-path='url(%23s)' fill='%23AA151B'/><path d='M42,46 H78 M42,54 H78 M42,62 H78 M50,38 V74 M60,38 V74 M70,38 V74' stroke='%23F8CE46' stroke-width='1.5' clip-path='url(%23s)' fill='none'/><path d='M4,4 H76 V72 Q40,94 4,72 Z' fill='none' stroke='%23C9A227' stroke-width='3'/><rect x='26' y='0' width='28' height='6' rx='2' fill='%23C9A227'/><rect x='22' y='-4' width='6' height='8' rx='2' fill='%23C9A227'/><rect x='37' y='-4' width='6' height='8' rx='2' fill='%23C9A227'/><rect x='52' y='-4' width='6' height='8' rx='2' fill='%23C9A227'/></svg>">
+<!-- Favicon: logo oficial recortado en círculo (sin fondo blanco) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 100 100'><defs><clipPath id='c'><circle cx='50' cy='50' r='50'/></clipPath></defs><image href='Logo.jpeg' width='100' height='100' clip-path='url(%23c)'/></svg>">
+<link rel="icon" href="Logo.jpeg" type="image/jpeg">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -461,64 +462,137 @@ select.form-input { appearance: auto; }
 /* TEAM SECTION */
 .team-intro {
   font-family: 'DM Sans';
-  font-size: 16px;
+  font-size: 17px;
   color: #555;
-  line-height: 1.8;
-  margin-bottom: 36px;
-  max-width: 720px;
+  line-height: 1.85;
+  margin-bottom: 52px;
+  max-width: 760px;
 }
-.team-grid {
+.team-section {
+  background: linear-gradient(135deg, #fdfcfa 0%, #f5f2ec 100%);
+  border-radius: 16px;
+  padding: 52px 40px;
+  margin-bottom: 56px;
   display: flex;
-  gap: 40px;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
 }
 .team-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  flex: 1;
-  min-width: 200px;
-  max-width: 280px;
+  padding: 0 52px;
+  position: relative;
+}
+.team-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: var(--borde);
 }
 .team-photo {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  background: #f0ede8;
-  border: 3px solid var(--dorado-oscuro);
+  background: #ece9e3;
+  border: 4px solid var(--dorado-oscuro);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   overflow: hidden;
   flex-shrink: 0;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.10);
 }
-.team-photo svg { opacity: 0.35; }
+.team-photo svg { opacity: 0.3; }
 .team-photo img { width: 100%; height: 100%; object-fit: cover; }
 .team-name {
-  font-family: 'DM Sans';
-  font-size: 18px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 20px;
   font-weight: 700;
   color: var(--texto);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .team-role {
   font-family: 'DM Sans';
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--rojo);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .team-desc {
   font-family: 'DM Sans';
   font-size: 14px;
   color: #777;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 220px;
 }
+
+/* INFO STRIP (reemplaza los loc-cards) */
+.info-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+}
+.info-block {
+  padding: 32px 28px;
+  border-right: 1px solid var(--borde);
+}
+.info-block:last-child { border-right: none; }
+.info-block-title {
+  font-family: 'DM Sans';
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--rojo);
+  margin-bottom: 16px;
+}
+.info-block p, .info-block div {
+  font-family: 'DM Sans';
+  font-size: 15px;
+  color: #444;
+  line-height: 1.9;
+}
+.info-block strong { color: #222; }
+.info-block .info-highlight {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--texto);
+  line-height: 1.2;
+  margin: 6px 0;
+}
+.info-block .info-muted {
+  font-size: 13px;
+  color: #999;
+  margin-top: 4px;
+}
+.consulado-block {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 28px;
+  margin-top: 16px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.consulado-block p, .consulado-block div {
+  font-family: 'DM Sans';
+  font-size: 14px;
+  color: #bbb;
+  line-height: 1.9;
+}
+.consulado-block strong { color: white; }
+.consulado-block a { color: var(--dorado); text-decoration: none; font-weight: 600; font-size: 13px; }
+.consulado-block a:hover { color: #ffe066; }
 
 /* LOCATION */
 .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
@@ -709,6 +783,17 @@ footer { background: #1a1a1a; margin-top: 60px; }
   .slot-btn { font-size: 14px; padding: 12px 4px; }
   .btn[type="submit"] { padding: 16px 22px; font-size: 16px; }
 
+  /* NOSOTROS — mobile */
+  .team-section { flex-direction: column; padding: 32px 24px; gap: 32px; }
+  .team-card { padding: 0; }
+  .team-card:not(:last-child)::after { display: none; }
+  .team-card:not(:last-child) { padding-bottom: 32px; border-bottom: 1px solid var(--borde); }
+  .team-photo { width: 120px; height: 120px; }
+  .info-strip { grid-template-columns: 1fr; }
+  .info-block { border-right: none; border-bottom: 1px solid var(--borde); }
+  .info-block:last-child { border-bottom: none; }
+  .consulado-block { flex-direction: column; gap: 14px; padding: 22px 20px; }
+
   /* LOCATION */
   .loc-grid { grid-template-columns: 1fr; }
   .loc-card h3 { font-size: 16px; }
@@ -804,7 +889,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <button class="nav-btn active" data-section="inicio">Inicio</button>
       <button class="nav-btn" data-section="tramites">Trámites</button>
       <button class="nav-btn" data-section="citas">Citas</button>
-      <button class="nav-btn" data-section="ubicacion">Ubicación</button>
+      <button class="nav-btn" data-section="ubicacion">Nosotros</button>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Abrir menú">
       <span></span><span></span><span></span>
@@ -1246,13 +1331,11 @@ footer { background: #1a1a1a; margin-top: 60px; }
   </div>
 </div>
 
-<!-- ==================== NOSOTROS / UBICACIÓN ==================== -->
+<!-- ==================== NOSOTROS ==================== -->
 <div id="sec-ubicacion" class="section">
   <button class="back-btn" onclick="showSection('inicio')">← Volver al inicio</button>
   <h1 class="page-title">Nosotros</h1>
-  <div style="height:8px"></div>
 
-  <!-- Descripción -->
   <p class="team-intro">
     El Viceconsulado Honorario de España en Porlamar es una representación oficial del
     Ministerio de Asuntos Exteriores, Unión Europea y Cooperación del Reino de España,
@@ -1262,77 +1345,78 @@ footer { background: #1a1a1a; margin-top: 60px; }
   </p>
 
   <!-- Equipo -->
-  <div class="section-label">Nuestro Equipo</div>
-  <div class="team-grid">
-
+  <div class="team-section">
     <div class="team-card">
       <div class="team-photo">
-        <!-- CAMBIAR: reemplazar por <img src="foto-carlos.jpg"> cuando se facilite -->
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="#bbb" xmlns="http://www.w3.org/2000/svg">
+        <!-- CAMBIAR: <img src="foto-carlos.jpg" alt="Carlos Leiros"> cuando se facilite -->
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="#c8c0b4" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
         </svg>
       </div>
       <div class="team-name">Carlos Leiros</div>
       <div class="team-role">Vicecónsul Honorario</div>
-      <div class="team-desc">Representante oficial del Estado español en el Estado Nueva Esparta. Responsable de la gestión consular y relaciones institucionales.</div>
+      <div class="team-desc">Representante oficial del Estado español en el Estado Nueva Esparta. Responsable de la gestión consular y las relaciones institucionales.</div>
     </div>
 
     <div class="team-card">
       <div class="team-photo">
-        <!-- CAMBIAR: reemplazar por <img src="foto-elizabeth.jpg"> cuando se facilite -->
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="#bbb" xmlns="http://www.w3.org/2000/svg">
+        <!-- CAMBIAR: <img src="foto-elizabeth.jpg" alt="Elizabeth Castellanos"> cuando se facilite -->
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="#c8c0b4" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
         </svg>
       </div>
       <div class="team-name">Elizabeth Castellanos</div>
       <div class="team-role">Asistente Consular</div>
-      <div class="team-desc">Responsable de la atención al ciudadano, gestión de citas y coordinación de trámites consulares en el Viceconsulado.</div>
+      <div class="team-desc">Responsable de la atención al ciudadano, gestión de citas y coordinación de todos los trámites consulares del Viceconsulado.</div>
     </div>
-
   </div>
 
-  <!-- Información operativa -->
-  <div class="section-label">Información y Contacto</div>
-  <div class="loc-grid">
-    <div class="loc-card">
-      <h3>Dirección</h3>
-      <!-- CAMBIAR: Dirección real de la oficina -->
-      <p>Porlamar, Isla de Margarita<br>Estado Nueva Esparta, Venezuela</p>
-      <div style="margin-top:16px"><a class="btn btn-red btn-sm" href="https://maps.app.goo.gl/d9gfnNzqo79YbMp48" target="_blank">Abrir en Google Maps ↗</a></div>
-    </div>
-    <div class="loc-card">
-      <h3>Horario de Atención</h3>
-      <div style="font-family:'DM Sans';font-size:15px;color:#444;line-height:1.9">
-        <div><strong>Lunes a Viernes</strong></div>
-        <div style="font-size:20px;font-weight:700;color:var(--rojo);margin:4px 0">8:00 AM — 12:00 PM</div>
-        <div style="color:#888;font-size:14px;margin-top:2px">Solo con cita previa</div>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--borde);color:#999;font-size:14px">Sábado y Domingo: Cerrado</div>
+  <!-- Info strip: reemplaza los 4 cuadros -->
+  <div class="info-strip">
+    <div class="info-block">
+      <div class="info-block-title">Dirección</div>
+      <!-- CAMBIAR: dirección real -->
+      <div>Porlamar, Isla de Margarita</div>
+      <div>Estado Nueva Esparta, Venezuela</div>
+      <div style="margin-top:16px">
+        <a class="btn btn-red btn-sm" href="https://maps.app.goo.gl/d9gfnNzqo79YbMp48" target="_blank">Ver en Google Maps ↗</a>
       </div>
     </div>
-    <div class="loc-card">
-      <h3>Contacto</h3>
-      <!-- CAMBIAR: correo y WhatsApp reales -->
-      <div><strong>Correo:</strong> ch.porlamar@maec.es</div>
-      <div><strong>WhatsApp:</strong> +58 424-8429665</div>
-      <div><strong>Instagram:</strong> @viceconsulado_espana_ne</div>
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+    <div class="info-block">
+      <div class="info-block-title">Horario de Atención</div>
+      <div>Lunes a Viernes</div>
+      <div class="info-highlight">8:00 — 12:00</div>
+      <div class="info-muted">Solo con cita previa</div>
+      <div class="info-muted" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--borde)">Sábado y Domingo: Cerrado</div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Contacto</div>
+      <!-- CAMBIAR: datos reales -->
+      <div><a href="mailto:ch.porlamar@maec.es" style="color:var(--rojo);text-decoration:none;font-weight:500">ch.porlamar@maec.es</a></div>
+      <div>+58 424-8429665</div>
+      <div style="color:#999;font-size:13px">@viceconsulado_espana_ne</div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
         <a class="btn btn-green btn-sm" href="https://wa.me/584248429665" target="_blank" style="color:white">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           WhatsApp
         </a>
         <a class="btn btn-sm" href="https://www.instagram.com/viceconsulado_espana_ne" target="_blank" style="background:#E1306C;color:white">Instagram</a>
       </div>
     </div>
-    <div class="loc-card">
-      <h3>Consulado General en Caracas</h3>
-      <p>Edif. Bancaracas, Piso 7<br>Plaza La Castellana<br>Caracas 1060</p>
-      <div style="margin-top:12px">
-        <div><strong>Tel:</strong> +58 212 2660333</div>
-        <div><strong>Emergencias 24h:</strong> +58 424 2090264</div>
-      </div>
-      <div style="margin-top:12px">
-        <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank" style="font-family:'DM Sans';font-size:14px;color:var(--rojo);text-decoration:none;font-weight:600">Web oficial del Consulado ↗</a>
-      </div>
+  </div>
+
+  <!-- Consulado General -->
+  <div class="consulado-block">
+    <div>
+      <div style="font-family:'DM Sans';font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px">Consulado General en Caracas</div>
+      <div><strong>Edif. Bancaracas, Piso 7</strong> — Plaza La Castellana, Caracas 1060</div>
+    </div>
+    <div>
+      <div>Tel: +58 212 2660333</div>
+      <div>Emergencias 24h: +58 424 2090264</div>
+    </div>
+    <div>
+      <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank">Web oficial del Consulado ↗</a>
     </div>
   </div>
 </div>
