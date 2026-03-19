@@ -961,21 +961,14 @@ footer { background: #1a1a1a; margin-top: 60px; }
           garantizando una atención de calidad y ordenada a cada ciudadano.
         </p>
       </div>
-      <div class="bio-photo-carousel" id="bioCarousel">
-        <div class="bio-photo-track" id="bioPhotoTrack">
-          <div class="bio-photo-slide">
-            <img src="images/edifzoom.png" alt="Oficina del Viceconsulado Honorario de España en Porlamar — vista interior" loading="lazy">
-          </div>
-          <div class="bio-photo-slide">
-            <img src="images/edifx1.png" alt="Oficina del Viceconsulado Honorario de España en Porlamar — fachada" loading="lazy">
-          </div>
-        </div>
-        <button class="bio-photo-btn bio-photo-prev" onclick="bioPhotoPrev()" aria-label="Foto anterior">&#8249;</button>
-        <button class="bio-photo-btn bio-photo-next" onclick="bioPhotoNext()" aria-label="Foto siguiente">&#8250;</button>
-        <div class="bio-photo-dots">
-          <button class="bio-photo-dot active" onclick="bioPhotoGoTo(0)" aria-label="Foto 1"></button>
-          <button class="bio-photo-dot" onclick="bioPhotoGoTo(1)" aria-label="Foto 2"></button>
-        </div>
+      <!-- PENDIENTE: fotos de la oficina (en espera del cliente) -->
+      <div class="bio-img-placeholder bio-img-main">
+        <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="32" rx="3" fill="#d4cfc7"/>
+          <circle cx="14" cy="12" r="4" fill="#bbb"/>
+          <path d="M0 24 L10 16 L18 22 L26 14 L40 26 L40 32 L0 32 Z" fill="#bbb"/>
+        </svg>
+        <span>Fotografías de la oficina<br><em>Próximamente</em></span>
       </div>
     </div>
   </section>
