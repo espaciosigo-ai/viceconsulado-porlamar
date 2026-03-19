@@ -61,7 +61,7 @@ a { color: var(--rojo); }
 /* Logo stack: grey (top) y color (debajo), se cruzan en scroll */
 .nav-logo-stack { position: relative; width: 52px; height: 52px; flex-shrink: 0; }
 .nav-shield { position: absolute; inset: 0; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; transition: opacity 0.4s ease; }
-.nav-shield-grey  { opacity: 1; }
+.nav-shield-grey  { opacity: 1; filter: brightness(1.25); }
 .nav-shield-color { opacity: 0; }
 .nav--scrolled .nav-shield-grey  { opacity: 0; }
 .nav--scrolled .nav-shield-color { opacity: 1; }
@@ -72,7 +72,7 @@ a { color: var(--rojo); }
 .nav-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; line-height: 1.3; color: var(--texto); }
 .nav-sub   { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--gris-claro); }
 
-.nav-links { display: flex; gap: 6px; }
+.nav-links { display: none; gap: 6px; }
 .nav-btn {
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
@@ -92,7 +92,7 @@ a { color: var(--rojo); }
 .nav--scrolled .nav-btn:hover, .nav--scrolled .nav-btn.active { color: var(--rojo); background: rgba(170,21,27,0.06); }
 
 /* HAMBURGER */
-.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px 6px; flex-shrink: 0; }
+.hamburger { display: flex; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px 6px; flex-shrink: 0; }
 .hamburger span { display: block; width: 24px; height: 2px; background: rgba(255,255,255,0.9); border-radius: 2px; transition: all 0.3s; }
 .nav--scrolled .hamburger span { background: var(--texto); }
 .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -1240,7 +1240,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
     <p style="font-family:'DM Sans';font-size:15px;color:var(--gris);margin-bottom:12px">Los siguientes trámites <strong>solo se realizan</strong> en el Consulado General en Caracas:</p>
     <ul>
       <li>Visados (todos los tipos)</li>
-      <li>Certificado de antecedentes penales</li>
+
       <li>Homologaciones</li>
       <li>Legalización y Apostilla</li>
     </ul>
