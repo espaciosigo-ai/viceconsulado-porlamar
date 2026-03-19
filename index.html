@@ -179,32 +179,24 @@ a { color: var(--rojo); }
   margin-bottom: 16px;
 }
 .bio-text p:last-child { margin-bottom: 0; }
-.bio-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 12px;
+/* BIO PHOTO CAROUSEL */
+.bio-photo-carousel { position: relative; border-radius: 12px; overflow: hidden; background: #1a1a1a; }
+.bio-photo-track { display: flex; transition: transform 0.5s ease; }
+.bio-photo-slide { min-width: 100%; }
+.bio-photo-slide img { width: 100%; height: 320px; object-fit: cover; display: block; }
+.bio-photo-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.45); color: white; border: none; cursor: pointer;
+  width: 38px; height: 38px; border-radius: 50%; font-size: 22px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
 }
-.bio-img-placeholder {
-  background: #f0ede8;
-  border: 2px dashed #d4cfc7;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 28px 16px;
-  color: var(--gris-claro);
-  font-family: 'DM Sans';
-  font-size: 13px;
-  text-align: center;
-  aspect-ratio: 4/3;
-}
-.bio-img-placeholder svg { margin-bottom: 8px; opacity: 0.4; }
-.bio-img-main {
-  grid-column: 1 / -1;
-  aspect-ratio: 16/7;
-}
+.bio-photo-btn:hover { background: rgba(0,0,0,0.65); }
+.bio-photo-prev { left: 10px; }
+.bio-photo-next { right: 10px; }
+.bio-photo-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; }
+.bio-photo-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+.bio-photo-dot.active { background: white; }
 
 /* CAROUSEL BANNERS */
 .carousel-section { padding: 36px 20px 0; max-width: 1200px; margin: 0 auto; }
@@ -733,7 +725,8 @@ footer { background: #1a1a1a; margin-top: 60px; }
   .bio-inner { gap: 20px; }
   .bio-text h2 { font-size: 20px; margin-bottom: 14px; }
   .bio-text p { font-size: 16px; line-height: 1.75; }
-  /* Imágenes: scroll horizontal en móvil */
+  .bio-photo-slide img { height: 220px; }
+  /* Imágenes legacy: scroll horizontal en móvil */
   .bio-images {
     display: flex;
     flex-direction: row;
@@ -968,31 +961,20 @@ footer { background: #1a1a1a; margin-top: 60px; }
           garantizando una atención de calidad y ordenada a cada ciudadano.
         </p>
       </div>
-      <div class="bio-images">
-        <!-- CAMBIAR: reemplazar placeholders por imágenes reales de la oficina -->
-        <div class="bio-img-placeholder bio-img-main">
-          <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="32" rx="3" fill="#d4cfc7"/>
-            <circle cx="14" cy="12" r="4" fill="#bbb"/>
-            <path d="M0 24 L10 16 L18 22 L26 14 L40 26 L40 32 L0 32 Z" fill="#bbb"/>
-          </svg>
-          <span>Fotografía principal de la oficina<br><em>Próximamente</em></span>
+      <div class="bio-photo-carousel" id="bioCarousel">
+        <div class="bio-photo-track" id="bioPhotoTrack">
+          <div class="bio-photo-slide">
+            <img src="images/edifzoom.png" alt="Oficina del Viceconsulado Honorario de España en Porlamar — vista interior" loading="lazy">
+          </div>
+          <div class="bio-photo-slide">
+            <img src="images/edifx1.png" alt="Oficina del Viceconsulado Honorario de España en Porlamar — fachada" loading="lazy">
+          </div>
         </div>
-        <div class="bio-img-placeholder">
-          <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="26" rx="3" fill="#d4cfc7"/>
-            <circle cx="11" cy="9" r="3" fill="#bbb"/>
-            <path d="M0 19 L8 13 L14 17 L21 10 L32 20 L32 26 L0 26 Z" fill="#bbb"/>
-          </svg>
-          <span>Sala de espera<br><em>Próximamente</em></span>
-        </div>
-        <div class="bio-img-placeholder">
-          <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="26" rx="3" fill="#d4cfc7"/>
-            <circle cx="11" cy="9" r="3" fill="#bbb"/>
-            <path d="M0 19 L8 13 L14 17 L21 10 L32 20 L32 26 L0 26 Z" fill="#bbb"/>
-          </svg>
-          <span>Área de atención<br><em>Próximamente</em></span>
+        <button class="bio-photo-btn bio-photo-prev" onclick="bioPhotoPrev()" aria-label="Foto anterior">&#8249;</button>
+        <button class="bio-photo-btn bio-photo-next" onclick="bioPhotoNext()" aria-label="Foto siguiente">&#8250;</button>
+        <div class="bio-photo-dots">
+          <button class="bio-photo-dot active" onclick="bioPhotoGoTo(0)" aria-label="Foto 1"></button>
+          <button class="bio-photo-dot" onclick="bioPhotoGoTo(1)" aria-label="Foto 2"></button>
         </div>
       </div>
     </div>
@@ -1437,7 +1419,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <div>Porlamar, Isla de Margarita</div>
         <div>Estado Nueva Esparta, Venezuela</div>
         <div style="margin-top:8px"><strong style="color:#ccc">Vicecónsul Honorario:</strong></div>
-        <div>D. Manuel Leiros Pampinella</div>
+        <div>D. Carlos Leiros</div>
         <div style="margin-top:8px"><strong style="color:#ccc">Circunscripción:</strong></div>
         <div>Estado Nueva Esparta</div>
       </div>
@@ -1569,6 +1551,32 @@ if (carouselEl) {
   carouselEl.addEventListener('touchstart', stopCarousel, { passive: true });
   carouselEl.addEventListener('touchend', startCarousel, { passive: true });
   startCarousel();
+}
+
+// ============================================
+// CARRUSEL DE FOTOS (SECCIÓN BIO)
+// ============================================
+var bioPhotoCurrent = 0;
+var bioPhotoTotal = document.querySelectorAll('.bio-photo-slide').length;
+var bioPhotoTimer = null;
+
+function bioPhotoGoTo(n) {
+  bioPhotoCurrent = n;
+  document.getElementById('bioPhotoTrack').style.transform = 'translateX(-' + (n * 100) + '%)';
+  document.querySelectorAll('.bio-photo-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === n);
+  });
+}
+function bioPhotoNext() { bioPhotoGoTo((bioPhotoCurrent + 1) % bioPhotoTotal); }
+function bioPhotoPrev() { bioPhotoGoTo((bioPhotoCurrent - 1 + bioPhotoTotal) % bioPhotoTotal); }
+
+var bioCarouselEl = document.getElementById('bioCarousel');
+if (bioCarouselEl) {
+  bioPhotoTimer = setInterval(bioPhotoNext, 5000);
+  bioCarouselEl.addEventListener('mouseenter', function() { clearInterval(bioPhotoTimer); });
+  bioCarouselEl.addEventListener('mouseleave', function() { bioPhotoTimer = setInterval(bioPhotoNext, 5000); });
+  bioCarouselEl.addEventListener('touchstart', function() { clearInterval(bioPhotoTimer); }, { passive: true });
+  bioCarouselEl.addEventListener('touchend', function() { bioPhotoTimer = setInterval(bioPhotoNext, 5000); }, { passive: true });
 }
 
 // ============================================
