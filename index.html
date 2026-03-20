@@ -832,6 +832,73 @@ footer { background: #1a1a1a; margin-top: 60px; }
   .cta-row { flex-direction: column; }
   .cta-row .btn { justify-content: center; }
 }
+
+/* ── TRAMITE TAGS ── */
+.tramite-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.t-tag {
+  display: inline-flex; align-items: center;
+  font-family: 'DM Sans'; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.6px; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 4px;
+}
+.t-tag-cita    { background: #e8f0fe; color: #1a56c4; }
+.t-tag-gratis  { background: #e6f9f0; color: #1a7a4a; }
+.t-tag-tasa    { background: #fff3e0; color: #b35c00; }
+.t-tag-caracas { background: #fce8e8; color: #aa151b; }
+
+/* ── FAQ ACCORDION ── */
+.faq-intro { font-family:'DM Sans'; font-size:16px; color:#555; line-height:1.85; margin-bottom:28px; max-width:680px; }
+.faq-list  { display:flex; flex-direction:column; gap:8px; max-width:800px; }
+.faq-item  { border:1px solid var(--borde); border-radius:9px; background:white; overflow:hidden; }
+.faq-q {
+  font-family:'DM Sans'; font-size:16px; font-weight:600;
+  padding:18px 22px; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  transition:background 0.2s; color:var(--texto);
+}
+.faq-q:hover { background:#fdfcfa; }
+.faq-arrow { font-size:13px; color:#bbb; flex-shrink:0; transition:transform 0.3s; }
+.faq-item.open .faq-arrow { transform:rotate(180deg); }
+.faq-item.open .faq-q { border-bottom:1px solid #f0ede8; color:var(--rojo); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+.faq-item.open .faq-a { max-height:800px; }
+.faq-a-inner { padding:16px 22px 22px; font-family:'DM Sans'; font-size:15px; color:#555; line-height:1.85; }
+.faq-a-inner strong { color:#333; }
+@media(max-width:768px){
+  .faq-q { font-size:15px; padding:16px 18px; }
+  .faq-a-inner { padding:14px 18px 18px; font-size:14px; }
+}
+
+/* ── STICKY CTA — solo móvil ── */
+.sticky-cta {
+  display: none;
+  position: fixed; bottom:0; left:0; right:0;
+  background: white; border-top:2px solid var(--rojo);
+  padding: 10px 16px; z-index: 150;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.10);
+  gap: 10px;
+}
+@media(max-width:768px){
+  .sticky-cta { display:flex; }
+  .sticky-cta .btn { flex:1; justify-content:center; font-size:15px; padding:13px 10px; }
+  footer { padding-bottom: 76px; }
+}
+
+/* ── REQ BOX (formulario citas) ── */
+.req-box {
+  display:none; margin-top:10px;
+  background:#f0f4f8; border:1px solid #c8d8e8; border-left:4px solid #2c7bb6;
+  border-radius:7px; padding:14px 16px;
+  font-family:'DM Sans'; font-size:14px; color:#2c4a62; line-height:1.8;
+}
+.req-box.warning { background:#fff8f0; border-color:#f0a040; border-left-color:#d07000; color:#7a4000; }
+.req-box-title { font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.req-box ul { padding-left:18px; margin:0; }
+.req-box ul li { margin-bottom:3px; }
+.req-box .req-nota { margin-top:10px; padding-top:8px; border-top:1px solid rgba(0,0,0,0.08); font-size:13px; }
+
+/* ── CHANNEL DESCRIPTIONS (contacto) ── */
+.channel-label { font-family:'DM Sans'; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.1px; color:#aaa; margin-bottom:3px; }
 </style>
 </head>
 <body>
@@ -907,6 +974,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <button class="nav-btn" data-section="tramites">Trámites</button>
       <button class="nav-btn" data-section="citas">Citas</button>
       <button class="nav-btn" data-section="ubicacion">Nosotros</button>
+      <button class="nav-btn" data-section="faq">FAQ</button>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Abrir menú">
       <span></span><span></span><span></span>
@@ -922,10 +990,16 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <img class="hero-shield" src="images/Logo.jpeg" alt="Escudo Viceconsulado Honorario de España en Porlamar">
       </div>
       <div class="hero-text">
+        <div class="hero-badge" style="font-size:10px;opacity:0.65;letter-spacing:2px;margin-bottom:4px">GOBIERNO DE ESPAÑA</div>
         <div class="hero-badge">Ministerio de Asuntos Exteriores, Unión Europea y Cooperación</div>
         <h1>Viceconsulado Honorario<br>de España</h1>
         <div class="hero-divider"></div>
         <p class="hero-sub">Porlamar — Estado Nueva Esparta, Venezuela</p>
+        <p class="hero-sub" style="font-size:14px;margin-top:6px;opacity:0.65">Trámites consulares · Registro Civil · Documentación · Solo con cita previa</p>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-red" onclick="showSection('citas')" style="font-size:15px;padding:13px 26px">Solicitar Cita</button>
+          <button class="btn btn-outline" onclick="showSection('tramites')" style="font-size:15px;padding:13px 26px;border-color:rgba(255,255,255,0.45);color:rgba(255,255,255,0.85)">Ver Trámites</button>
+        </div>
       </div>
     </div>
   </section>
@@ -1025,6 +1099,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Pasaportes</div>
             <div class="tramite-subtitle">Primera expedición y renovación</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-tasa">Tasa Aplicable</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1073,6 +1148,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Inscripción de Nacimiento</div>
             <div class="tramite-subtitle">Registro Civil — Nacionalidad</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-gratis">Gratuito</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1119,6 +1195,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Inscripción de Matrimonio</div>
             <div class="tramite-subtitle">Registro Civil</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-gratis">Gratuito</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1151,6 +1228,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Inscripción de Defunción</div>
             <div class="tramite-subtitle">Registro Civil</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-gratis">Gratuito</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1182,6 +1260,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Fe de Vida</div>
             <div class="tramite-subtitle">Certificado de existencia</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-gratis">Gratuito</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1205,6 +1284,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <div>
             <div class="tramite-title">Otros Trámites</div>
             <div class="tramite-subtitle">Alta/Baja consular, NIF, NIE, Poderes, Residencia</div>
+            <div class="tramite-tags"><span class="t-tag t-tag-cita">Con Cita</span><span class="t-tag t-tag-gratis">Gratuito (mayoría)</span><span class="t-tag t-tag-caracas">Poderes: firma en Caracas</span></div>
           </div>
         </div>
         <span class="tramite-arrow">▼</span>
@@ -1231,19 +1311,28 @@ footer { background: #1a1a1a; margin-top: 60px; }
   </div>
 
   <!-- Trámites que NO se realizan aquí -->
-  <div class="no-tramites" style="margin-top:28px">
-    <h4>Trámites que NO se realizan en este Viceconsulado</h4>
-    <p style="font-family:'DM Sans';font-size:15px;color:var(--gris);margin-bottom:12px">Los siguientes trámites <strong>solo se realizan</strong> en el Consulado General en Caracas:</p>
-    <ul>
-      <li>Visados (todos los tipos)</li>
-
-      <li>Homologaciones</li>
-      <li>Legalización y Apostilla</li>
-    </ul>
-    <p style="font-family:'DM Sans';font-size:14px;color:var(--gris);line-height:1.75;background:#f0ede8;border-radius:6px;padding:12px 16px;margin-bottom:12px">
-      <strong>Poderes notariales:</strong> la gestión inicial se realiza en este Viceconsulado, pero la firma debe efectuarse en persona en el Consulado General en Caracas.
-    </p>
-    <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank" style="font-family:'DM Sans';font-size:14px;color:var(--rojo);font-weight:600;text-decoration:none">Ir a la web del Consulado General en Caracas ↗</a>
+  <div style="margin-top:32px;border:2px solid var(--rojo);border-radius:12px;overflow:hidden">
+    <div style="background:var(--rojo);padding:16px 24px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:22px">🚫</span>
+      <div>
+        <div style="font-family:'DM Sans';font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:2px">Solo en Caracas</div>
+        <div style="font-family:'DM Sans';font-size:17px;font-weight:700;color:white">Estos trámites NO se realizan en este Viceconsulado</div>
+      </div>
+    </div>
+    <div style="background:white;padding:22px 24px">
+      <p style="font-family:'DM Sans';font-size:15px;color:#555;margin-bottom:14px">Los siguientes trámites son competencia exclusiva del <strong>Consulado General de España en Caracas</strong>:</p>
+      <ul style="font-family:'DM Sans';font-size:15px;color:#444;line-height:2.2;padding-left:20px;margin-bottom:16px">
+        <li>Visados (todos los tipos: turista, estudiante, trabajo, etc.)</li>
+        <li>Compulsas de documentos</li>
+        <li>Legalización y Apostilla</li>
+        <li>Certificado de Antecedentes Penales</li>
+        <li>Homologaciones de títulos</li>
+      </ul>
+      <div style="background:#fff8f0;border:1px solid #f0c070;border-left:4px solid #d07000;border-radius:7px;padding:14px 16px;font-family:'DM Sans';font-size:14px;color:#7a4000;margin-bottom:16px">
+        <strong>Poderes Notariales:</strong> la documentación inicial se tramita aquí, pero la firma debe realizarse obligatoriamente en persona en el Consulado General en Caracas.
+      </div>
+      <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank" class="btn btn-outline btn-sm">Web oficial del Consulado General ↗</a>
+    </div>
   </div>
 </div>
 
@@ -1272,7 +1361,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
     </div>
     <div class="form-group">
       <label class="form-label">Trámite a realizar *</label>
-      <select class="form-input" name="tramite" required>
+      <select class="form-input" name="tramite" id="tramiteSelect" required onchange="onTramiteChange(this.value)">
         <option value="">Seleccione un trámite</option>
         <option>Pasaporte — Solicitud inicial</option>
         <option>Pasaporte — Renovación</option>
@@ -1291,6 +1380,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <option>Recuperación de Nacionalidad</option>
         <option>Otro (especificar en observaciones)</option>
       </select>
+      <div class="req-box" id="reqBox"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Fecha preferida</label>
@@ -1391,10 +1481,13 @@ footer { background: #1a1a1a; margin-top: 60px; }
     <div class="info-block">
       <div class="info-block-title">Contacto</div>
       <!-- CAMBIAR: datos reales -->
-      <div><a href="mailto:viceconsuladomargarita@gmail.com" style="color:var(--rojo);text-decoration:none;font-weight:500">viceconsuladomargarita@gmail.com</a></div>
-      <div>+58 424-8429665</div>
-      <div style="color:#999;font-size:13px">@viceconsulado_espana_ne</div>
-      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <div class="channel-label">WhatsApp · Consultas rápidas</div>
+      <div style="margin-bottom:14px"><a href="https://wa.me/584248429665" style="color:var(--texto);text-decoration:none;font-weight:600">+58 424-8429665</a><div style="font-size:13px;color:#999">Respuesta en horario laboral</div></div>
+      <div class="channel-label">Correo · Solicitudes formales</div>
+      <div style="margin-bottom:14px"><a href="mailto:viceconsuladomargarita@gmail.com" style="color:var(--rojo);text-decoration:none;font-weight:500">viceconsuladomargarita@gmail.com</a></div>
+      <div class="channel-label">Instagram · Noticias y avisos</div>
+      <div style="margin-bottom:16px;color:#555;font-size:14px">@viceconsulado_espana_ne</div>
+      <div style="margin-top:0;display:flex;gap:8px;flex-wrap:wrap">
         <a class="btn btn-green btn-sm" href="https://wa.me/584248429665" target="_blank" style="color:white">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           WhatsApp
@@ -1418,6 +1511,131 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank">Web oficial del Consulado ↗</a>
     </div>
   </div>
+</div>
+
+<!-- ==================== FAQ ==================== -->
+<div id="sec-faq" class="section">
+  <button class="back-btn" onclick="showSection('inicio')">← Volver al inicio</button>
+  <h1 class="page-title">Preguntas Frecuentes</h1>
+  <p class="faq-intro">Respuestas a las dudas más comunes. Si su pregunta no está aquí, contáctenos por WhatsApp.</p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Con cuánto tiempo de anticipación debo pedir la cita?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Recomendamos solicitarla con al menos <strong>2 semanas de anticipación</strong>. En períodos de alta demanda (antes de jornadas de pasaporte) puede necesitar más tiempo. Reserve lo antes posible.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Puedo hacer más de un trámite en la misma cita?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>No.</strong> Cada cita es individual, personal e intransferible. Si necesita realizar varios trámites, debe solicitar <strong>una cita independiente para cada uno</strong>. Indíquelo en las observaciones al solicitar.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Qué pasa si no tengo toda la documentación el día de la cita?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Sin documentación completa <strong>no se realiza el trámite</strong>. La cita se pierde y debe solicitar una nueva. Consulte los requisitos de su trámite en la sección <a href="#" onclick="showSection('tramites');return false" style="color:var(--rojo)">Trámites</a> antes de venir.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Puedo renovar el pasaporte aquí si tengo más de 12 años?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        El trámite se puede <strong>iniciar</strong> en el Viceconsulado, pero para mayores de 12 años la <strong>toma de huellas dactilares</strong> solo se realiza en Caracas o durante operativos especiales en Margarita. Una vez completada la toma de huellas, el pasaporte tarda aproximadamente <strong>2 meses</strong> en llegar.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Hacen visados aquí?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>No.</strong> Los visados (turista, estudiante, trabajo, reagrupación familiar, etc.) son competencia exclusiva del <strong>Consulado General en Caracas</strong>. Tampoco realizamos compulsas, apostillas, legalizaciones ni certificados de antecedentes penales.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Pueden atenderme sin cita?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>No.</strong> Todos los trámites requieren cita previa. No se atiende sin cita bajo ninguna circunstancia. Para urgencias o emergencias consulares fuera de horario, contacte el número de emergencias del Consulado General: <strong>+58 424 209 0264</strong>.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Cuánto tiempo tardan los trámites de Registro Civil?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Los trámites de Registro Civil (nacimiento, matrimonio, defunción) se gestionan a través del <strong>Consulado General en Caracas</strong> tras la presentación de documentos aquí. Los plazos dependen de la carga del Consulado, generalmente entre <strong>2 y 6 meses</strong>. Puede verificar el estado en <a href="https://sutramiteconsular.maec.es" target="_blank" style="color:var(--rojo)">sutramiteconsular.maec.es</a>.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Cómo verifico el estado de mi trámite?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Puede consultar en línea en <a href="https://sutramiteconsular.maec.es" target="_blank" style="color:var(--rojo)">sutramiteconsular.maec.es</a> usando su número de expediente. También puede escribirnos por correo o WhatsApp con su nombre completo y trámite para que le informemos.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Cuál es la diferencia entre el Viceconsulado y el Consulado General en Caracas?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        El <strong>Viceconsulado Honorario de Nueva Esparta</strong> es una representación auxiliar del Consulado General, con jurisdicción en el Estado Nueva Esparta (Margarita, Coche, Cubagua). Atendemos los trámites más comunes para residentes en estas islas. El <strong>Consulado General en Caracas</strong> tiene competencia sobre toda Venezuela y ofrece todos los servicios, incluidos visados, apostillas y trámites que no podemos gestionar aquí.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Puedo enviar documentos por correo o WhatsApp en lugar de ir personalmente?
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>No para los trámites.</strong> Todos los trámites consulares requieren <strong>presencia personal del interesado</strong> con los documentos originales. Sí puede contactarnos por correo o WhatsApp para consultas, aclaraciones sobre requisitos o para saber si su documentación está completa antes de venir.
+      </div></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:32px;background:#f8f7f4;border-radius:10px;padding:24px;text-align:center">
+    <p style="font-family:'DM Sans';font-size:15px;color:#555;margin-bottom:16px">¿Su pregunta no está aquí? Contáctenos directamente.</p>
+    <a class="btn btn-green" href="https://wa.me/584248429665?text=Hola%2C%20tengo%20una%20consulta%20sobre%20trámites%20consulares" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Preguntar por WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- STICKY CTA — solo móvil -->
+<div class="sticky-cta" id="stickyCta">
+  <button class="btn btn-outline" onclick="showSection('tramites')" style="font-size:14px">Ver Trámites</button>
+  <button class="btn btn-red" onclick="showSection('citas')" style="font-size:14px">Solicitar Cita</button>
 </div>
 
 <!-- FOOTER -->
@@ -1469,6 +1687,8 @@ footer { background: #1a1a1a; margin-top: 60px; }
       Los datos facilitados serán tratados conforme a la normativa de protección de datos vigente.
     </p>
     <div class="foot-links">
+      <a href="politica-privacidad.html">Política de Privacidad</a>
+      <a href="aviso-legal.html">Aviso Legal</a>
       <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank">Consulado General en Caracas</a>
       <a href="https://sutramiteconsular.maec.es" target="_blank">Verificar estado de trámite</a>
     </div>
@@ -1709,6 +1929,124 @@ function selectSlot(btn) {
 function resetSlots() {
   document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('selected'); });
 }
+
+// ============================================
+// TRAMITE REQUIREMENTS — caja dinámica en form citas
+// ============================================
+var _tramiteReq = {
+  'Pasaporte — Solicitud inicial': {
+    docs: ['Certificación literal de nacimiento del Registro Civil español (original)', '3 fotografías 32×26 mm, fondo blanco, de frente', 'Cédula venezolana del interesado (original y copia)', 'Pasaporte del progenitor español (original y copia)'],
+    nota: 'Mayores de 12 años: toma de huellas en Caracas o durante operativo especial en Margarita.', tasa: true, caracas: false
+  },
+  'Pasaporte — Renovación': {
+    docs: ['Pasaporte anterior (o denuncia policial si fue robado/extraviado)', '3 fotografías 32×26 mm, fondo blanco, de frente', 'Cédula venezolana del titular, padre y madre (original y copia de cada uno)', 'Partida literal de nacimiento'],
+    nota: 'Renovable cuando quede menos de 1 año de vigencia. Trámite personal obligatorio.', tasa: true, caracas: false
+  },
+  'Pasaporte — Menores de 12 años': {
+    docs: ['Pasaporte anterior o certificado de nacimiento español', '3 fotografías 32×26 mm, fondo blanco, de frente', 'Cédula venezolana del menor y de ambos progenitores', 'Deben comparecer padre y madre (o autorización notariada del ausente)'],
+    nota: 'Sin toma de huellas para menores de 12 años.', tasa: true, caracas: false
+  },
+  'Inscripción de Nacimiento': {
+    docs: ['Acta de nacimiento venezolana apostillada (La Haya)', 'Hoja declaratoria de inscripción de nacimiento (firmada)', 'Cédula del interesado (original y copia)', '2 fotografías 3×4 cm, fondo blanco'],
+    nota: 'Trámite GRATUITO. Debe acudir el interesado personalmente.', tasa: false, caracas: false
+  },
+  'Inscripción de Matrimonio': {
+    docs: ['Acta de matrimonio venezolana apostillada', 'Hoja declaratoria para matrimonio', 'Cédula y pasaporte del cónyuge español', 'Documento de identidad del cónyuge extranjero'],
+    nota: 'GRATUITO. Deben acudir ambos contrayentes.', tasa: false, caracas: false
+  },
+  'Inscripción de Defunción': {
+    docs: ['Acta de defunción venezolana (original)', 'Hoja declaratoria de defunción', 'Literal de nacimiento española del difunto', 'Pasaporte español del difunto'],
+    nota: 'Debe ser gestionado por un familiar directo.', tasa: false, caracas: false
+  },
+  'Fe de Vida': {
+    docs: ['Certificado médico no mayor a 3 meses', 'Pasaporte español (original y copia, páginas 2, 3, 6 y 7)', 'Cédula de identidad (original y copia)'],
+    nota: '', tasa: false, caracas: false
+  },
+  'Alta Consular': {
+    docs: ['Pasaporte español vigente', 'Cédula venezolana', 'Formulario de solicitud de inscripción como residente (descargable en la web)'],
+    nota: 'GRATUITO. Permite inscribirse en el Registro de Matrícula Consular del Estado Nueva Esparta.', tasa: false, caracas: false
+  },
+  'Baja Consular': {
+    docs: ['Pasaporte español', 'Cédula venezolana'],
+    nota: 'GRATUITO. Solicitar con al menos 1 mes de anticipación al traslado.', tasa: false, caracas: false
+  },
+  'Certificado de Residencia': {
+    docs: ['Pasaporte español vigente', 'Cédula venezolana', 'Comprobante de domicilio'],
+    nota: '', tasa: false, caracas: false
+  },
+  'Poder Notarial': {
+    docs: ['Identificación del otorgante (pasaporte o cédula)', 'Datos completos del apoderado', 'Descripción detallada de las facultades del poder'],
+    nota: '⚠️ La firma del poder debe realizarse OBLIGATORIAMENTE en persona en el Consulado General en Caracas. El Viceconsulado gestiona la documentación previa.', tasa: false, caracas: true
+  },
+  'NIF': {
+    docs: ['Certificado de nacimiento español', 'Pasaporte o DNI español', 'Formulario Modelo 030 (disponible en la Agencia Tributaria)'],
+    nota: 'GRATUITO.', tasa: false, caracas: false
+  },
+  'NIE': {
+    docs: ['Formulario EX-15', 'Pasaporte venezolano vigente', 'Justificación del motivo (trabajo, estudios, interés económico, etc.)'],
+    nota: 'Para ciudadanos no españoles con interés legítimo en España.', tasa: false, caracas: false
+  },
+  'Conservación de Nacionalidad': {
+    docs: ['Documento que acredite la nacionalidad española', 'Cédula venezolana', 'Declaración de voluntad de conservar la nacionalidad'],
+    nota: 'GRATUITO.', tasa: false, caracas: false
+  },
+  'Recuperación de Nacionalidad': {
+    docs: ['Literal de nacimiento española', 'Cédula venezolana', 'Documentación que acredite la pérdida y su causa'],
+    nota: 'Consulte requisitos específicos en la cita.', tasa: false, caracas: false
+  },
+  'Otro (especificar en observaciones)': {
+    docs: [],
+    nota: 'Por favor detalle el trámite en las observaciones. Le contactaremos para informarle sobre los requisitos.', tasa: false, caracas: false
+  }
+};
+
+function onTramiteChange(val) {
+  var box = document.getElementById('reqBox');
+  if (!val || !_tramiteReq[val]) { box.style.display = 'none'; return; }
+  var info = _tramiteReq[val];
+  var html = '';
+  if (info.caracas) {
+    box.className = 'req-box warning';
+    html += '<div class="req-box-title">⚠️ Atención — Gestión en Caracas requerida</div>';
+  } else {
+    box.className = 'req-box';
+    html += '<div class="req-box-title">Documentos principales a traer</div>';
+  }
+  if (info.docs.length) {
+    html += '<ul>';
+    info.docs.forEach(function(d){ html += '<li>' + d + '</li>'; });
+    html += '</ul>';
+  }
+  if (info.nota) html += '<div class="req-nota">' + info.nota + '</div>';
+  if (info.tasa) html += '<div class="req-nota" style="color:#b35c00;font-weight:600">💰 Tasa consular aplicable — consulte el monto vigente.</div>';
+  box.innerHTML = html;
+  box.style.display = 'block';
+}
+
+// ============================================
+// FAQ ACCORDION
+// ============================================
+function toggleFaq(btn) {
+  var item = btn.parentElement;
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ============================================
+// STICKY CTA — ocultar cuando está en citas o inicio
+// ============================================
+(function() {
+  var _origShowSection = showSection;
+  showSection = function(id) {
+    _origShowSection(id);
+    var cta = document.getElementById('stickyCta');
+    if (cta) cta.style.display = (id === 'citas' || id === 'inicio') ? 'none' : 'flex';
+  };
+  // Estado inicial: inicio, ocultar
+  var cta = document.getElementById('stickyCta');
+  if (cta) cta.style.display = 'none';
+})();
 </script>
 
 </body>
