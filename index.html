@@ -1320,7 +1320,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
   <!-- Trámites que NO se realizan aquí -->
   <div style="margin-top:32px;border:2px solid var(--rojo);border-radius:12px;overflow:hidden">
     <div style="background:var(--rojo);padding:16px 24px;display:flex;align-items:center;gap:12px">
-      <span style="font-size:22px">🚫</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
       <div>
         <div style="font-family:'DM Sans';font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:2px">Solo en Caracas</div>
         <div style="font-family:'DM Sans';font-size:17px;font-weight:700;color:white">Estos trámites NO se realizan en este Viceconsulado</div>
@@ -1987,7 +1987,7 @@ var _tramiteReq = {
   },
   'Poder Notarial': {
     docs: ['Identificación del otorgante (pasaporte o cédula)', 'Datos completos del apoderado', 'Descripción detallada de las facultades del poder'],
-    nota: '⚠️ La firma del poder debe realizarse OBLIGATORIAMENTE en persona en el Consulado General en Caracas. El Viceconsulado gestiona la documentación previa.', tasa: false, caracas: true
+    nota: 'La firma del poder debe realizarse OBLIGATORIAMENTE en persona en el Consulado General en Caracas. El Viceconsulado gestiona la documentación previa.', tasa: false, caracas: true
   },
   'NIF': {
     docs: ['Certificado de nacimiento español', 'Pasaporte o DNI español', 'Formulario Modelo 030 (disponible en la Agencia Tributaria)'],
@@ -2018,7 +2018,7 @@ function onTramiteChange(val) {
   var html = '';
   if (info.caracas) {
     box.className = 'req-box warning';
-    html += '<div class="req-box-title">⚠️ Atención — Gestión en Caracas requerida</div>';
+    html += '<div class="req-box-title">Atención — Gestión en Caracas requerida</div>';
   } else {
     box.className = 'req-box';
     html += '<div class="req-box-title">Documentos principales a traer</div>';
@@ -2029,7 +2029,7 @@ function onTramiteChange(val) {
     html += '</ul>';
   }
   if (info.nota) html += '<div class="req-nota">' + info.nota + '</div>';
-  if (info.tasa) html += '<div class="req-nota" style="color:#b35c00;font-weight:600">💰 Tasa consular aplicable — consulte el monto vigente.</div>';
+  if (info.tasa) html += '<div class="req-nota" style="color:#b35c00;font-weight:600">Tasa consular aplicable — consulte el monto vigente.</div>';
   box.innerHTML = html;
   box.style.display = 'block';
 }
@@ -2045,18 +2045,32 @@ function toggleFaq(btn) {
 }
 
 // ============================================
-// STICKY CTA — ocultar cuando está en citas o inicio
+// STICKY CTA — visible al scrollear en inicio; siempre en otras secciones; oculto en citas
 // ============================================
 (function() {
   var _origShowSection = showSection;
+  var _currentSection = 'inicio';
+
+  function updateCta() {
+    var cta = document.getElementById('stickyCta');
+    if (!cta) return;
+    if (_currentSection === 'citas') { cta.style.display = 'none'; return; }
+    if (_currentSection === 'inicio') {
+      // Mostrar solo cuando el hero ya salió de la pantalla (~280px)
+      cta.style.display = window.scrollY > 280 ? 'block' : 'none';
+    } else {
+      cta.style.display = 'block';
+    }
+  }
+
   showSection = function(id) {
     _origShowSection(id);
-    var cta = document.getElementById('stickyCta');
-    if (cta) cta.style.display = (id === 'citas' || id === 'inicio') ? 'none' : 'flex';
+    _currentSection = id;
+    updateCta();
   };
-  // Estado inicial: inicio, ocultar
-  var cta = document.getElementById('stickyCta');
-  if (cta) cta.style.display = 'none';
+
+  window.addEventListener('scroll', updateCta, { passive: true });
+  updateCta(); // estado inicial
 })();
 </script>
 
