@@ -97,6 +97,10 @@ a { color: var(--rojo); }
 /* HERO */
 .hero {
   background: linear-gradient(135deg, var(--rojo) 0%, var(--rojo-oscuro) 50%, #1a1a1a 100%);
+  background-image: url('images/Edificio.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
   padding: 60px 20px 64px;
   position: relative;
   overflow: hidden;
@@ -506,8 +510,8 @@ select.form-input { appearance: auto; }
   background: var(--borde);
 }
 .team-photo {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: #ece9e3;
   border: 4px solid var(--dorado-oscuro);
@@ -519,11 +523,12 @@ select.form-input { appearance: auto; }
   flex-shrink: 0;
   box-shadow: 0 8px 28px rgba(0,0,0,0.10);
 }
+.team-card--single { padding: 0 80px; }
 .team-photo svg { opacity: 0.3; }
 .team-photo img { width: 100%; height: 100%; object-fit: cover; }
 .team-name {
   font-family: 'Libre Baskerville', serif;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--texto);
   margin-bottom: 6px;
@@ -804,7 +809,8 @@ footer { background: #1a1a1a; margin-top: 60px; }
   .team-card { padding: 0; }
   .team-card:not(:last-child)::after { display: none; }
   .team-card:not(:last-child) { padding-bottom: 32px; border-bottom: 1px solid var(--borde); }
-  .team-photo { width: 120px; height: 120px; }
+  .team-photo { width: 160px; height: 160px; }
+  .team-card--single { padding: 0; }
   .info-strip { grid-template-columns: 1fr; }
   .info-block { border-right: none; border-bottom: 1px solid var(--borde); }
   .info-block:last-child { border-bottom: none; }
@@ -1009,10 +1015,6 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <div class="hero-divider"></div>
         <p class="hero-sub">Porlamar — Estado Nueva Esparta, Venezuela</p>
         <p class="hero-sub" style="font-size:14px;margin-top:6px;opacity:0.65">Trámites consulares · Registro Civil · Documentación · Solo con cita previa</p>
-        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-          <button class="btn btn-red" onclick="showSection('citas')" style="font-size:15px;padding:13px 26px">Solicitar Cita</button>
-          <button class="btn btn-outline" onclick="showSection('tramites')" style="font-size:15px;padding:13px 26px;border-color:rgba(255,255,255,0.45);color:rgba(255,255,255,0.85)">Ver Trámites</button>
-        </div>
       </div>
     </div>
   </section>
@@ -1452,28 +1454,13 @@ footer { background: #1a1a1a; margin-top: 60px; }
 
   <!-- Equipo -->
   <div class="team-section">
-    <div class="team-card">
+    <div class="team-card team-card--single">
       <div class="team-photo">
-        <!-- CAMBIAR: <img src="foto-carlos.jpg" alt="Manuel Leiros"> cuando se facilite -->
-        <svg width="56" height="56" viewBox="0 0 24 24" fill="#c8c0b4" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-        </svg>
+        <img src="images/Pic_Manuel.png" alt="Manuel Leiros">
       </div>
       <div class="team-name">Manuel Leiros</div>
       <div class="team-role">Vicecónsul Honorario</div>
       <div class="team-desc">Representante oficial del Estado español en el Estado Nueva Esparta. Responsable de la gestión consular y las relaciones institucionales.</div>
-    </div>
-
-    <div class="team-card">
-      <div class="team-photo">
-        <!-- CAMBIAR: <img src="foto-elizabeth.jpg" alt="Elizabeth Castellanos"> cuando se facilite -->
-        <svg width="56" height="56" viewBox="0 0 24 24" fill="#c8c0b4" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-        </svg>
-      </div>
-      <div class="team-name">Elizabeth Castellanos</div>
-      <div class="team-role">Asistente Consular</div>
-      <div class="team-desc">Responsable de la atención al ciudadano, gestión de citas y coordinación de todos los trámites consulares del Viceconsulado.</div>
     </div>
   </div>
 
