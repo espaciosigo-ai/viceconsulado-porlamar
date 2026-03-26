@@ -1332,6 +1332,8 @@ footer { background: #1a1a1a; margin-top: 60px; }
           <li><strong>Alta consular</strong> como residente</li>
           <li><strong>Baja consular</strong> (solicitar 1 mes antes del viaje)</li>
           <li><strong>Certificado de residencia</strong></li>
+          <li><strong>Certificado de No Residente</strong></li>
+          <li><strong>Certificado de Antecedentes Penales</strong> — la solicitud se tramita aquí; el retiro es en el Ministerio de Justicia en España</li>
           <li><strong>NIF</strong> — Número de Identificación Fiscal</li>
           <li><strong>NIE</strong> — Número de Identidad de Extranjero</li>
           <li><strong>Poderes notariales</strong> — se <em>inician</em> en este Viceconsulado pero deben <em>firmarse</em> obligatoriamente en el Consulado General en Caracas</li>
@@ -1421,6 +1423,8 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <option>Alta Consular</option>
         <option>Baja Consular</option>
         <option>Certificado de Residencia</option>
+        <option>Certificado de No Residente</option>
+        <option>Certificado de Antecedentes Penales</option>
         <option>Poder Notarial</option>
         <option>NIF</option>
         <option>NIE</option>
@@ -2013,8 +2017,16 @@ var _tramiteReq = {
     nota: 'GRATUITO. Solicitar con al menos 1 mes de anticipación al traslado.', tasa: false, caracas: false
   },
   'Certificado de Residencia': {
-    docs: ['Pasaporte español vigente (original y fotocopia)', 'Cédula venezolana (original y fotocopia)', 'Comprobante de domicilio'],
+    docs: ['Fotocopia del pasaporte español (páginas 2 y 7)', 'Fotocopia de la cédula venezolana'],
     nota: '', tasa: false, caracas: false
+  },
+  'Certificado de No Residente': {
+    docs: ['Pasaporte vigente (original y fotocopia completa)', 'Carta de solicitud dirigida al Viceconsulado', 'Formulario EX-15 (disponible en la oficina)', 'Pago de tasas — Modelo 790 Código 012'],
+    nota: 'La solicitud se gestiona en este Viceconsulado. Consulte disponibilidad y tasas vigentes.', tasa: true, caracas: false
+  },
+  'Certificado de Antecedentes Penales': {
+    docs: [],
+    nota: 'La solicitud se tramita en este Viceconsulado. El retiro del certificado es en el Ministerio de Justicia en España. Consúltenos por WhatsApp para los requisitos exactos.', tasa: false, caracas: false
   },
   'Poder Notarial': {
     docs: ['Identificación del otorgante (pasaporte o cédula)', 'Datos completos del apoderado', 'Descripción detallada de las facultades del poder'],
@@ -2029,8 +2041,8 @@ var _tramiteReq = {
     nota: 'Para ciudadanos no españoles con interés legítimo en España.', tasa: false, caracas: false
   },
   'Conservación de Nacionalidad': {
-    docs: ['Documento que acredite la nacionalidad española', 'Cédula venezolana', 'Declaración de voluntad de conservar la nacionalidad'],
-    nota: 'GRATUITO.', tasa: false, caracas: false
+    docs: ['Copia de la literal de nacimiento española', 'Original y fotocopia del pasaporte español (páginas 2 y 7)', 'Original y fotocopia de la cédula venezolana (recortada)', '1 fotografía reciente 3×4 cm, fondo blanco'],
+    nota: 'GRATUITO. Consúltenos por WhatsApp para más información.', tasa: false, caracas: false
   },
   'Recuperación de Nacionalidad': {
     docs: ['Literal de nacimiento española', 'Cédula venezolana', 'Documentación que acredite la pérdida y su causa'],
