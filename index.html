@@ -515,8 +515,8 @@ select.form-input { appearance: auto; }
   background: var(--borde);
 }
 .team-photo {
-  width: 200px;
-  height: 200px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   background: #ece9e3;
   border: 4px solid var(--dorado-oscuro);
@@ -549,10 +549,13 @@ select.form-input { appearance: auto; }
 }
 .team-desc {
   font-family: 'DM Sans';
-  font-size: 14px;
+  font-size: 17px;
   color: #555;
-  line-height: 1.8;
-  max-width: 480px;
+  line-height: 1.85;
+  max-width: 560px;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 /* INFO STRIP (reemplaza los loc-cards) */
@@ -809,12 +812,12 @@ footer { background: #1a1a1a; margin-top: 60px; }
 
   /* NOSOTROS — mobile */
   .team-intro { font-size: 16px; }
-  .team-desc { font-size: 13px; max-width: 100%; }
+  .team-desc { font-size: 16px; max-width: 100%; }
   .team-section { flex-direction: column; padding: 32px 24px; gap: 32px; }
   .team-card { padding: 0; }
   .team-card:not(:last-child)::after { display: none; }
   .team-card:not(:last-child) { padding-bottom: 32px; border-bottom: 1px solid var(--borde); }
-  .team-photo { width: 160px; height: 160px; }
+  .team-photo { width: 200px; height: 200px; }
   .team-card--single { padding: 0; }
   .info-strip { grid-template-columns: 1fr; }
   .info-block { border-right: none; border-bottom: 1px solid var(--borde); }
