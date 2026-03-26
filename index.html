@@ -2093,9 +2093,15 @@ function toggleFaq(btn) {
       if (cta) cta.classList.toggle('visible', past);
       if (wa)  wa.classList.toggle('visible', past);
     } else {
-      // En cualquier otra sección: siempre visibles
-      if (cta) cta.classList.add('visible');
-      if (wa)  wa.classList.add('visible');
+      // En cualquier otra sección: animar entrada
+      if (cta && !cta.classList.contains('visible')) {
+        cta.classList.remove('visible');
+        setTimeout(function() { cta.classList.add('visible'); }, 120);
+      }
+      if (wa && !wa.classList.contains('visible')) {
+        wa.classList.remove('visible');
+        setTimeout(function() { wa.classList.add('visible'); }, 180);
+      }
     }
   }
 
