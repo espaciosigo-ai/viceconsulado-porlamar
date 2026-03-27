@@ -86,6 +86,7 @@ a { color: var(--rojo); }
   transition: color 0.2s, background 0.2s;
 }
 .nav-btn:hover, .nav-btn.active { color: var(--rojo); background: rgba(170,21,27,0.06); }
+a.nav-btn { text-decoration: none; display: inline-block; }
 
 /* HAMBURGER */
 .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px 6px; flex-shrink: 0; }
@@ -1020,6 +1021,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <button class="nav-btn active" data-section="inicio">Inicio</button>
       <button class="nav-btn" data-section="tramites">Servicios Consulares</button>
       <button class="nav-btn" data-section="citas">Citas</button>
+      <a class="nav-btn" href="https://sutramiteconsular.maec.es" target="_blank" rel="noopener noreferrer">Estado de Trámite</a>
       <button class="nav-btn" data-section="ubicacion">Nosotros</button>
       <button class="nav-btn" data-section="faq">FAQ</button>
     </div>
@@ -1736,7 +1738,6 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <a href="politica-privacidad.html">Política de Privacidad</a>
       <a href="aviso-legal.html">Aviso Legal</a>
       <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank">Consulado General en Caracas</a>
-      <a href="https://sutramiteconsular.maec.es" target="_blank">Verificar estado de trámite</a>
     </div>
   </div>
 </footer>
