@@ -1107,8 +1107,21 @@ footer { background: #1a1a1a; margin-top: 60px; }
           garantizando una atención de calidad y ordenada a cada ciudadano.
         </p>
       </div>
-      <div class="bio-edificio">
-        <img src="images/Edificio.jpeg" alt="Oficina del Viceconsulado Honorario de España en Porlamar">
+      <div class="bio-photo-carousel" id="bioCarousel">
+        <div class="bio-photo-track" id="bioPhotoTrack">
+          <div class="bio-photo-slide">
+            <img src="images/Edif1.jpeg" alt="Oficina del Viceconsulado — vista exterior">
+          </div>
+          <div class="bio-photo-slide">
+            <img src="images/Edif2.jpeg" alt="Oficina del Viceconsulado — acceso">
+          </div>
+        </div>
+        <button type="button" class="bio-photo-btn bio-photo-prev" onclick="bioPhotoPrev()" aria-label="Anterior">&#8249;</button>
+        <button type="button" class="bio-photo-btn bio-photo-next" onclick="bioPhotoNext()" aria-label="Siguiente">&#8250;</button>
+        <div class="bio-photo-dots">
+          <button type="button" class="bio-photo-dot active" onclick="bioPhotoGoTo(0)" aria-label="Foto 1"></button>
+          <button type="button" class="bio-photo-dot" onclick="bioPhotoGoTo(1)" aria-label="Foto 2"></button>
+        </div>
       </div>
     </div>
   </section>
