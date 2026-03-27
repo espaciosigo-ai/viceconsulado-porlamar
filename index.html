@@ -631,6 +631,7 @@ select.form-input { appearance: auto; }
 
 /* PAGE HEADING */
 .back-btn { font-family: 'DM Sans'; font-size: 14px; font-weight: 600; color: var(--rojo); background: none; border: none; cursor: pointer; margin-bottom: 18px; padding: 0; display: inline-flex; align-items: center; gap: 4px; }
+.inline-link { background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
 .page-title { font-size: clamp(28px, 4vw, 38px); margin-bottom: 8px; line-height: 1.2; }
 .page-desc { font-family: 'DM Sans'; font-size: 16px; color: var(--gris); line-height: 1.65; margin-bottom: 32px; }
 
@@ -1557,7 +1558,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
     </div>
     <div>
       <div>Tel: +58 212 2660333</div>
-      <div>Emergencias 24h: +58 424 2090264</div>
+      <div>Emergencias 24h: <button type="button" class="inline-link" onclick="showSection('emergencia')">+58 424 2090264</button></div>
     </div>
     <div>
       <a href="https://www.exteriores.gob.es/Consulados/caracas/es/Paginas/index.aspx" target="_blank">Web oficial del Consulado ↗</a>
