@@ -1792,6 +1792,7 @@ function showSection(id) {
 }
 
 document.querySelectorAll('.nav-btn').forEach(function(btn) {
+  if (!btn.dataset.section) return;
   btn.addEventListener('click', function() { showSection(this.dataset.section); closeMenu(); });
 });
 
