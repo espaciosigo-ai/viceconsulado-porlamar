@@ -1478,7 +1478,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
     <div class="form-group">
       <label class="form-label">Fecha preferida</label>
       <input class="form-input" name="fecha" type="date" id="fechaInput">
-      <div class="form-hint">Horario de citas: Lunes a Viernes · 8:30 AM – 12:00 PM · Solo con cita previa</div>
+      <div class="form-hint" id="cfg-citas-hint">Horario de citas: Lunes a Viernes · 8:30 AM — 12:00 PM · Solo con cita previa</div>
     </div>
     <div class="form-group" id="horaGroup" style="display:none">
       <label class="form-label">Hora preferida *</label>
@@ -1550,9 +1550,9 @@ footer { background: #1a1a1a; margin-top: 60px; }
     </div>
     <div class="info-block">
       <div class="info-block-title">Horario de Atención</div>
-      <div>Lunes a Viernes</div>
-      <div class="info-highlight">8:00 — 12:00</div>
-      <div class="info-muted">Solo con cita previa</div>
+      <div id="cfg-horario-dias">Lunes a Viernes</div>
+      <div class="info-highlight" id="cfg-horario-atencion">8:00 — 12:00</div>
+      <div class="info-muted" id="cfg-horario-nota">Atención presencial e información general</div>
       <div class="info-muted" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--borde)">Sábado y Domingo: Cerrado</div>
     </div>
     <div class="info-block">
@@ -1733,9 +1733,9 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <div class="footer-col">
         <div class="footer-col-title">Horario de Atención</div>
         <div style="color:#ccc;font-family:'DM Sans';font-size:14px;line-height:1.9">
-          <div>Lunes a Viernes</div>
-          <div style="color:white;font-weight:700;font-size:16px">8:00 AM — 12:00 PM</div>
-          <div style="color:#888;margin-top:4px">Solo con cita previa</div>
+          <div id="cfg-footer-dias">Lunes a Viernes</div>
+          <div id="cfg-footer-horario" style="color:white;font-weight:700;font-size:16px">8:00 AM — 12:00 PM</div>
+          <div id="cfg-footer-nota" style="color:#888;margin-top:4px">Atención presencial e información general</div>
           <div style="color:#666;margin-top:2px">Sábado y Domingo: Cerrado</div>
         </div>
       </div>
@@ -1744,7 +1744,7 @@ footer { background: #1a1a1a; margin-top: 60px; }
         <div>Av. José Asunción Rodríguez</div>
         <div>Porlamar 6301, Nueva Esparta</div>
         <div style="margin-top:8px"><strong style="color:#ccc">Vicecónsul Honorario:</strong></div>
-        <div>D. Manuel Leiros</div>
+        <div id="cfg-viceconsul">D. Manuel Leiros</div>
         <div style="margin-top:8px"><strong style="color:#ccc">Circunscripción:</strong></div>
         <div>Estado Nueva Esparta</div>
       </div>
@@ -1921,11 +1921,11 @@ var API_URL = window.location.hostname === 'localhost' || window.location.hostna
 // Clases de estilo por índice (rota entre los 3 estilos disponibles)
 var SLIDE_CLASSES = ['slide-jornada', 'slide-aviso', 'slide-info'];
 
-// Banners de respaldo si la API no responde
+// Banners de respaldo si la API no responde (sincronizados con la BD)
 var BANNERS_FALLBACK = [
-  { titulo: 'Próxima Jornada de Pasaportes', cuerpo: 'El 18 de junio de 2026 se realizará una Jornada Especial de Pasaportes. Reserve su cita con anticipación — las plazas son limitadas.' },
-  { titulo: 'Aviso Importante — Cita Previa Obligatoria', cuerpo: 'Todos los servicios consulares se prestan exclusivamente con cita previa. No se atiende sin cita bajo ninguna circunstancia.' },
-  { titulo: 'Cierre por Festividad Nacional — 19 de Abril', cuerpo: 'El Viceconsulado permanecerá cerrado el 19 de abril por festividad nacional. Las citas de esa fecha serán reagendadas.' },
+  { titulo: 'Próxima Jornada de Pasaportes', cuerpo: 'El 18 de junio de 2026 se realizará una Jornada Especial de Pasaportes en el Viceconsulado Honorario de España. Reserve su cita con anticipación.' },
+  { titulo: 'Aviso — Información General y Cita Previa', cuerpo: 'La oficina está abierta de 8:00 a 12:00, lunes a viernes, para consultas e información general. Los servicios consulares requieren cita previa obligatoria.' },
+  { titulo: 'Cierre por Festividad Nacional — 19 de Abril', cuerpo: 'El Viceconsulado permanecerá cerrado el 19 de abril por festividad nacional (Día de la Declaración de Independencia). Las citas de esa fecha serán reagendadas.' },
 ];
 
 function renderCarousel(banners) {
@@ -2299,6 +2299,49 @@ function toggleFaq(btn) {
 
   window.addEventListener('scroll', updateFabs, { passive: true });
   updateFabs(); // estado inicial (inicio, arriba → ocultos)
+})();
+
+// ============================================
+// CONFIGURACIÓN CENTRAL — carga desde /api/config
+// ============================================
+(function() {
+  function set(id, text) {
+    var el = document.getElementById(id);
+    if (el && text) el.textContent = text;
+  }
+
+  fetch(API_URL + '/api/config')
+    .then(function(r) { return r.json(); })
+    .then(function(cfg) {
+      var h  = cfg.horarios && cfg.horarios.atencion;
+      var hc = cfg.horarios && cfg.horarios.citas;
+      var co = cfg.consulado;
+
+      // Sección info (horario de atención)
+      if (h) {
+        set('cfg-horario-dias',    h.dias);
+        set('cfg-horario-atencion', h.apertura.replace(':','') > '0800'
+          ? h.texto : h.apertura + ' — ' + h.cierre);
+        set('cfg-horario-nota',    h.nota);
+      }
+
+      // Footer
+      if (h) {
+        set('cfg-footer-dias',    h.dias);
+        set('cfg-footer-horario', h.texto);
+        set('cfg-footer-nota',    h.nota);
+      }
+      if (co) {
+        set('cfg-viceconsul', 'D. ' + co.viceconsul);
+      }
+
+      // Hint formulario de citas
+      if (hc && co) {
+        set('cfg-citas-hint',
+          'Horario de citas: ' + hc.dias + ' · ' + hc.texto + ' · ' + hc.nota);
+      }
+    })
+    .catch(function() { /* mantiene textos hardcodeados como fallback */ });
 })();
 </script>
 
