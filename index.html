@@ -1054,41 +1054,13 @@ footer { background: #1a1a1a; margin-top: 60px; }
 <!-- ==================== INICIO ==================== -->
 <div id="sec-inicio" class="section active">
 
-  <!-- CARRUSEL DE AVISOS — aparece primero, justo bajo el hero -->
-  <!-- Estos banners se editarán desde el panel admin cuando esté disponible -->
-  <div class="carousel-section">
+  <!-- CARRUSEL DE AVISOS — carga dinámicamente desde /api/banners -->
+  <div class="carousel-section" id="carousel-section" style="display:none;">
     <div class="section-label">Avisos y Comunicados</div>
     <div class="carousel-wrap" id="carousel">
-      <div class="carousel-track" id="carouselTrack">
-
-        <!-- Aviso 1: Jornada de pasaporte -->
-        <div class="carousel-slide slide-jornada">
-          <div class="slide-label">Jornada Especial</div>
-          <div class="slide-title">Próxima Jornada de Pasaporte — 18 de Junio de 2026</div>
-          <div class="slide-body">Reserve su cita con anticipación.</div>
-        </div>
-
-        <!-- Aviso 2: Aviso importante -->
-        <div class="carousel-slide slide-aviso">
-          <div class="slide-label">Aviso Importante</div>
-          <div class="slide-title">Todos los trámites requieren cita previa</div>
-          <div class="slide-body">Cada cita es personal, individual e intransferible. Si necesita realizar más de un trámite, debe solicitar una cita independiente para cada uno. Algunos trámites como visados, compulsas y homologaciones solo se realizan en el Consulado General en Caracas.</div>
-        </div>
-
-        <!-- Aviso 3: Información general -->
-        <div class="carousel-slide slide-info">
-          <div class="slide-label">Información General</div>
-          <div class="slide-title">Horario de Atención: Lunes a Viernes, 8:00 AM – 12:00 PM</div>
-          <div class="slide-body">El Viceconsulado atiende únicamente con cita previa. Para consultas generales puede escribir al correo oficial o contactarnos por WhatsApp en horario laboral.</div>
-        </div>
-
-      </div>
+      <div class="carousel-track" id="carouselTrack"></div>
     </div>
-    <div class="carousel-dots" id="carouselDots">
-      <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Aviso 1"></button>
-      <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Aviso 2"></button>
-      <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Aviso 3"></button>
-    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
 
   <!-- BIO SECTION — debajo del carrusel -->
@@ -1409,17 +1381,59 @@ footer { background: #1a1a1a; margin-top: 60px; }
   <p class="page-desc">Complete el formulario y le contactaremos para confirmar fecha y hora. Cada cita es individual y para un solo trámite.</p>
 
   <form class="form-card" id="citaForm" onsubmit="return submitForm(event)">
-    <div class="form-group">
-      <label class="form-label">Nombre y Apellidos completos *</label>
-      <input class="form-input" name="nombre" required placeholder="Ej: María García López">
+    <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <label class="form-label">Nombres *</label>
+        <input class="form-input" name="nombres" required placeholder="Ej: María José">
+      </div>
+      <div>
+        <label class="form-label">Apellidos *</label>
+        <input class="form-input" name="apellidos" required placeholder="Ej: García López">
+      </div>
     </div>
     <div class="form-group">
-      <label class="form-label">Cédula de Identidad o Pasaporte *</label>
-      <input class="form-input" name="cedula" required placeholder="Ej: V-12345678 o AAB123456">
+      <label class="form-label">Tipo y número de documento *</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <select name="tipoDocumento" id="tipoDocSelect" required style="flex-shrink:0;padding:10px 10px;border:1.5px solid #d1cdc7;border-radius:8px;font-family:inherit;font-size:.93rem;background:#fff;cursor:pointer;min-width:140px;" onchange="onTipoDocChange(this.value)">
+          <option value="">Tipo...</option>
+          <option value="CI Venezuela">Cédula VEN</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="DNI España">DNI</option>
+          <option value="NIE">NIE</option>
+          <option value="NIF">NIF</option>
+          <option value="CI Colombia">Cédula COL</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <input class="form-input" name="cedula" id="cedulaInput" required placeholder="Número de documento" style="margin:0;" oninput="validarCedula(this)">
+      </div>
+      <div id="cedulaHint" style="font-size:.78rem;color:#888;margin-top:4px;display:none;"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Teléfono de contacto *</label>
-      <input class="form-input" name="telefono" type="tel" required placeholder="Ej: 0412-1234567">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <select name="codigoPais" id="codigoPaisSelect" style="flex-shrink:0;padding:10px 8px;border:1.5px solid #d1cdc7;border-radius:8px;font-family:inherit;font-size:.93rem;background:#fff;cursor:pointer;min-width:140px;">
+          <option value="+58">🇻🇪 +58</option>
+          <option value="+34">🇪🇸 +34</option>
+          <option value="+1">🇺🇸 +1</option>
+          <option value="+57">🇨🇴 +57</option>
+          <option value="+54">🇦🇷 +54</option>
+          <option value="+51">🇵🇪 +51</option>
+          <option value="+56">🇨🇱 +56</option>
+          <option value="+55">🇧🇷 +55</option>
+          <option value="+593">🇪🇨 +593</option>
+          <option value="+591">🇧🇴 +591</option>
+          <option value="+595">🇵🇾 +595</option>
+          <option value="+598">🇺🇾 +598</option>
+          <option value="+507">🇵🇦 +507</option>
+          <option value="+52">🇲🇽 +52</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+33">🇫🇷 +33</option>
+          <option value="+49">🇩🇪 +49</option>
+          <option value="+39">🇮🇹 +39</option>
+          <option value="+351">🇵🇹 +351</option>
+        </select>
+        <input class="form-input" name="telefono" type="tel" required placeholder="Ej: 4121234567" style="margin:0;" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+      </div>
     </div>
     <div class="form-group">
       <label class="form-label">Correo electrónico *</label>
@@ -1429,24 +1443,25 @@ footer { background: #1a1a1a; margin-top: 60px; }
       <label class="form-label">Trámite a realizar *</label>
       <select class="form-input" name="tramite" id="tramiteSelect" required onchange="onTramiteChange(this.value)">
         <option value="">Seleccione un trámite</option>
-        <option>Pasaporte — Solicitud inicial</option>
+        <option>Pasaporte — Primera expedición</option>
         <option>Pasaporte — Renovación</option>
         <option>Pasaporte — Menores de 12 años</option>
-        <option>Inscripción de Nacimiento</option>
-        <option>Inscripción de Matrimonio</option>
-        <option>Inscripción de Defunción</option>
-        <option>Fe de Vida</option>
-        <option>Alta Consular</option>
-        <option>Baja Consular</option>
-        <option>Certificado de Residencia</option>
-        <option>Certificado de No Residente</option>
-        <option>Certificado de Antecedentes Penales</option>
-        <option>Poder Notarial</option>
-        <option>NIF</option>
-        <option>NIE</option>
-        <option>Conservación de Nacionalidad</option>
-        <option>Recuperación de Nacionalidad</option>
-        <option>Otro (especificar en observaciones)</option>
+        <option>Inscripción de nacimiento</option>
+        <option>Inscripción de matrimonio</option>
+        <option>Inscripción de defunción</option>
+        <option>Fe de vida</option>
+        <option>Alta consular</option>
+        <option>Baja consular</option>
+        <option>Certificado de residencia</option>
+        <option>Certificado de no residente</option>
+        <option>Poder notarial</option>
+        <option>NIF — Identificación fiscal</option>
+        <option>NIE — Identidad de extranjero</option>
+        <option>Conservación de nacionalidad</option>
+        <option>Recuperación de nacionalidad</option>
+        <option>Ley de Memoria Democrática (LMD)</option>
+        <option>Cambio de censo electoral</option>
+        <option>Otro trámite</option>
       </select>
       <div class="req-box" id="reqBox"></div>
     </div>
@@ -1841,10 +1856,10 @@ function openTramite(id) {
 }
 
 // ============================================
-// CARRUSEL DE AVISOS
+// CARRUSEL DE AVISOS — carga dinámica
 // ============================================
 var carouselCurrent = 0;
-var carouselTotal = document.querySelectorAll('.carousel-slide').length;
+var carouselTotal = 0;
 var carouselTimer = null;
 
 function goToSlide(n) {
@@ -1856,19 +1871,22 @@ function goToSlide(n) {
 }
 
 function nextSlide() {
+  if (carouselTotal < 2) return;
   goToSlide((carouselCurrent + 1) % carouselTotal);
 }
 
 function startCarousel() {
-  carouselTimer = setInterval(nextSlide, 6000);
+  if (carouselTimer) clearInterval(carouselTimer);
+  if (carouselTotal > 1) carouselTimer = setInterval(nextSlide, 6000);
 }
 
 function stopCarousel() {
   clearInterval(carouselTimer);
 }
 
-var carouselEl = document.getElementById('carousel');
-if (carouselEl) {
+function initCarouselEvents() {
+  var carouselEl = document.getElementById('carousel');
+  if (!carouselEl) return;
   var cTouchX = 0;
   carouselEl.addEventListener('mouseenter', stopCarousel);
   carouselEl.addEventListener('mouseleave', startCarousel);
@@ -1883,8 +1901,42 @@ if (carouselEl) {
     }
     startCarousel();
   }, { passive: true });
-  startCarousel();
 }
+
+// URL de la API: Railway en producción, localhost en desarrollo
+var API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3000'
+  : 'https://viceconsulado-admin-production.up.railway.app';
+
+// Clases de estilo por índice (rota entre los 3 estilos disponibles)
+var SLIDE_CLASSES = ['slide-jornada', 'slide-aviso', 'slide-info'];
+
+fetch(API_URL + '/api/banners')
+  .then(function(r) { return r.json(); })
+  .then(function(banners) {
+    if (!banners || !banners.length) return;
+    var track = document.getElementById('carouselTrack');
+    var dots = document.getElementById('carouselDots');
+    track.innerHTML = '';
+    dots.innerHTML = '';
+    banners.forEach(function(b, i) {
+      var cls = SLIDE_CLASSES[i % SLIDE_CLASSES.length];
+      var slide = document.createElement('div');
+      slide.className = 'carousel-slide ' + cls;
+      slide.innerHTML = (b.categoria ? '<div class="slide-label">' + b.categoria + '</div>' : '') + '<div class="slide-title">' + b.titulo + '</div><div class="slide-body">' + b.cuerpo + '</div>';
+      track.appendChild(slide);
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Aviso ' + (i + 1));
+      dot.onclick = (function(idx) { return function() { goToSlide(idx); }; })(i);
+      dots.appendChild(dot);
+    });
+    carouselTotal = banners.length;
+    document.getElementById('carousel-section').style.display = '';
+    initCarouselEvents();
+    startCarousel();
+  })
+  .catch(function() { /* sin banners: la sección permanece oculta */ });
 
 // ============================================
 // CARRUSEL DE FOTOS (SECCIÓN BIO)
@@ -1915,6 +1967,43 @@ if (bioCarouselEl) {
 // ============================================
 // FORMULARIO DE CITAS
 // ============================================
+// Tipos de documento — límites de caracteres y validación
+var DOC_CONFIG = {
+  'CI Venezuela': { min: 6, max: 9, hint: 'Solo números, sin letras. Ej: 27768642', numeric: true },
+  'Pasaporte':    { min: 6, max: 12, hint: 'Letras y números. Ej: AB1234567', numeric: false },
+  'DNI España':   { min: 8, max: 9, hint: '8 dígitos + letra. Ej: 12345678Z', numeric: false },
+  'NIE':          { min: 9, max: 10, hint: 'Letra + 7 dígitos + letra. Ej: X1234567Z', numeric: false },
+  'NIF':          { min: 8, max: 9, hint: '8 dígitos + letra o K/L/M', numeric: false },
+  'CI Colombia':  { min: 6, max: 10, hint: 'Solo números', numeric: true },
+  'Otro':         { min: 4, max: 20, hint: 'Ingrese el número de documento', numeric: false },
+};
+
+function onTipoDocChange(tipo) {
+  var input = document.getElementById('cedulaInput');
+  var hint = document.getElementById('cedulaHint');
+  var cfg = DOC_CONFIG[tipo];
+  if (cfg) {
+    input.maxLength = cfg.max;
+    input.placeholder = cfg.hint;
+    hint.textContent = cfg.hint;
+    hint.style.display = 'block';
+    if (cfg.numeric) { input.setAttribute('inputmode', 'numeric'); }
+    else { input.removeAttribute('inputmode'); }
+  } else {
+    input.maxLength = 20;
+    hint.style.display = 'none';
+  }
+  input.value = '';
+}
+
+function validarCedula(input) {
+  var tipo = document.getElementById('tipoDocSelect').value;
+  var cfg = DOC_CONFIG[tipo];
+  if (cfg && cfg.numeric) {
+    input.value = input.value.replace(/\D/g, '');
+  }
+}
+
 function submitForm(e) {
   e.preventDefault();
   var form = document.getElementById('citaForm');
@@ -1925,24 +2014,41 @@ function submitForm(e) {
     return false;
   }
 
-  var data = new FormData(form);
-  // CAMBIAR: reemplazar por la URL del nuevo backend cuando esté listo
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhK9DHVHnixGbCZmGX2ag5xLK8khFCIs1L1PCsWFLHoQDPGm4EkGDSx912mfZzB4b-/exec';
+  var tipoDoc = form.querySelector('[name="tipoDocumento"]').value;
+  if (!tipoDoc) { alert('Seleccione el tipo de documento.'); return false; }
 
-  fetch(SCRIPT_URL, {
+  var payload = {
+    nombres:       form.querySelector('[name="nombres"]').value.trim(),
+    apellidos:     form.querySelector('[name="apellidos"]').value.trim(),
+    tipoDocumento: tipoDoc,
+    cedula:        form.querySelector('[name="cedula"]').value.trim(),
+    codigoPais:    form.querySelector('[name="codigoPais"]').value,
+    telefono:      form.querySelector('[name="telefono"]').value.trim(),
+    email:         form.querySelector('[name="email"]').value.trim(),
+    tramite:       form.querySelector('[name="tramite"]').value,
+    fecha:         fechaVal || null,
+    hora:          horaVal  || null,
+    observaciones: form.querySelector('[name="observaciones"]').value.trim(),
+  };
+
+  fetch(API_URL + '/api/public/cita', {
     method: 'POST',
-    body: data,
-    mode: 'no-cors'
-  }).then(function() {
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    return res.json().then(function(data) { return { ok: res.ok, data: data }; });
+  }).then(function(result) {
+    if (!result.ok) {
+      alert('Error: ' + (result.data.error || 'No se pudo registrar la cita.'));
+      return;
+    }
     showToast();
     form.reset();
     document.getElementById('horaGroup').style.display = 'none';
     resetSlots();
+    document.getElementById('cedulaHint').style.display = 'none';
   }).catch(function() {
-    showToast();
-    form.reset();
-    document.getElementById('horaGroup').style.display = 'none';
-    resetSlots();
+    alert('No se pudo conectar con el servidor. Verifica que el sistema esté activo.');
   });
 
   return false;
@@ -1957,11 +2063,23 @@ function showToast() {
 // ============================================
 // SELECTOR DE FECHA Y HORARIOS
 // ============================================
+// Obtener el próximo día hábil (lunes-viernes) desde mañana
+function proximoDiaHabil() {
+  var d = new Date();
+  d.setDate(d.getDate() + 1);
+  while (d.getDay() === 0 || d.getDay() === 6) { d.setDate(d.getDate() + 1); }
+  return d.toISOString().split('T')[0];
+}
+
 var fechaInput = document.getElementById('fechaInput');
 if (fechaInput) {
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  fechaInput.min = tomorrow.toISOString().split('T')[0];
+  fechaInput.min = proximoDiaHabil();
+
+  // Función para verificar si una fecha es fin de semana
+  function esFindeSemana(dateStr) {
+    var d = new Date(dateStr + 'T12:00:00');
+    return d.getDay() === 0 || d.getDay() === 6;
+  }
 
   fechaInput.addEventListener('input', function() {
     var horaGroup = document.getElementById('horaGroup');
@@ -1972,18 +2090,23 @@ if (fechaInput) {
       resetSlots();
       return;
     }
-    var date = new Date(this.value + 'T12:00:00');
-    var day = date.getDay();
-    if (day === 0 || day === 6) {
-      alert('Solo se pueden agendar citas de Lunes a Viernes.');
-      this.value = '';
-      horaGroup.style.display = 'none';
-      horaInput.value = '';
-      resetSlots();
-    } else {
-      horaGroup.style.display = 'block';
-      horaInput.value = '';
-      resetSlots();
+    if (esFindeSemana(this.value)) {
+      // Buscar el próximo lunes
+      var d = new Date(this.value + 'T12:00:00');
+      while (d.getDay() === 0 || d.getDay() === 6) { d.setDate(d.getDate() + 1); }
+      this.value = d.toISOString().split('T')[0];
+    }
+    horaGroup.style.display = 'block';
+    horaInput.value = '';
+    resetSlots();
+  });
+
+  // Bloquear escritura directa de fin de semana
+  fechaInput.addEventListener('blur', function() {
+    if (this.value && esFindeSemana(this.value)) {
+      var d = new Date(this.value + 'T12:00:00');
+      while (d.getDay() === 0 || d.getDay() === 6) { d.setDate(d.getDate() + 1); }
+      this.value = d.toISOString().split('T')[0];
     }
   });
 }
