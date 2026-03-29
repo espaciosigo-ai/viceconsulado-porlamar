@@ -226,23 +226,31 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 
 /* CAROUSEL BANNERS */
 .carousel-section { padding: 36px 20px 0; max-width: 1200px; margin: 0 auto; }
-.carousel-wrap { position: relative; overflow: hidden; border-radius: 10px; }
-.carousel-track { display: flex; transition: transform 0.5s ease; }
-.carousel-slide { min-width: 100%; padding: 26px 32px; box-sizing: border-box; }
+.carousel-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+.carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+.carousel-slide { min-width: 100%; padding: 30px 36px; box-sizing: border-box; }
 .slide-jornada {
-  background: linear-gradient(135deg, #fff8e1, #fff3cc);
-  border: 1px solid #e8d27a;
-  border-left: 5px solid var(--dorado-oscuro);
+  background: linear-gradient(135deg, #fffdf0 0%, #fff8d6 60%, #fff3c0 100%);
+  border: 1px solid #d4b94a;
+  border-left: 6px solid var(--dorado-oscuro);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
 }
 .slide-aviso {
-  background: #f8f7f4;
+  background: linear-gradient(135deg, #fdfcfc 0%, #faf8f6 100%);
   border: 1px solid var(--borde);
-  border-left: 5px solid var(--rojo);
+  border-left: 6px solid var(--rojo);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
 }
 .slide-info {
-  background: #f0f4f8;
-  border: 1px solid #c8d8e8;
-  border-left: 5px solid #2c7bb6;
+  background: linear-gradient(135deg, #f6f9fd 0%, #edf3fa 100%);
+  border: 1px solid #c0d4e8;
+  border-left: 6px solid #2c7bb6;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
 }
 .slide-label {
   font-family: 'DM Sans';
@@ -257,9 +265,10 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .slide-info .slide-label { color: #1a5580; }
 .slide-title {
   font-family: 'DM Sans';
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
 }
 .slide-jornada .slide-title { color: #5a4200; }
 .slide-aviso .slide-title { color: #1a1a1a; }
@@ -284,10 +293,11 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   background: var(--borde);
   border: none;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
   padding: 0;
 }
-.carousel-dot.active { background: var(--rojo); }
+.carousel-dot.active { background: var(--rojo); transform: scale(1.35); }
+.carousel-dot:hover:not(.active) { background: #ccc; }
 
 /* CTA ROW */
 .cta-row {
@@ -1911,32 +1921,46 @@ var API_URL = window.location.hostname === 'localhost' || window.location.hostna
 // Clases de estilo por índice (rota entre los 3 estilos disponibles)
 var SLIDE_CLASSES = ['slide-jornada', 'slide-aviso', 'slide-info'];
 
+// Banners de respaldo si la API no responde
+var BANNERS_FALLBACK = [
+  { titulo: 'Próxima Jornada de Pasaportes', cuerpo: 'El 18 de junio de 2026 se realizará una Jornada Especial de Pasaportes. Reserve su cita con anticipación — las plazas son limitadas.' },
+  { titulo: 'Aviso Importante — Cita Previa Obligatoria', cuerpo: 'Todos los servicios consulares se prestan exclusivamente con cita previa. No se atiende sin cita bajo ninguna circunstancia.' },
+  { titulo: 'Cierre por Festividad Nacional — 19 de Abril', cuerpo: 'El Viceconsulado permanecerá cerrado el 19 de abril por festividad nacional. Las citas de esa fecha serán reagendadas.' },
+];
+
+function renderCarousel(banners) {
+  var track = document.getElementById('carouselTrack');
+  var dots  = document.getElementById('carouselDots');
+  track.innerHTML = '';
+  dots.innerHTML  = '';
+  banners.forEach(function(b, i) {
+    var cls   = SLIDE_CLASSES[i % SLIDE_CLASSES.length];
+    var slide = document.createElement('div');
+    slide.className = 'carousel-slide ' + cls;
+    slide.innerHTML = (b.categoria ? '<div class="slide-label">' + b.categoria + '</div>' : '')
+      + '<div class="slide-title">' + b.titulo + '</div>'
+      + '<div class="slide-body">' + b.cuerpo + '</div>';
+    track.appendChild(slide);
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Aviso ' + (i + 1));
+    dot.onclick = (function(idx) { return function() { goToSlide(idx); }; })(i);
+    dots.appendChild(dot);
+  });
+  carouselTotal = banners.length;
+  document.getElementById('carousel-section').style.display = '';
+  initCarouselEvents();
+  startCarousel();
+}
+
 fetch(API_URL + '/api/banners')
   .then(function(r) { return r.json(); })
   .then(function(banners) {
-    if (!banners || !banners.length) return;
-    var track = document.getElementById('carouselTrack');
-    var dots = document.getElementById('carouselDots');
-    track.innerHTML = '';
-    dots.innerHTML = '';
-    banners.forEach(function(b, i) {
-      var cls = SLIDE_CLASSES[i % SLIDE_CLASSES.length];
-      var slide = document.createElement('div');
-      slide.className = 'carousel-slide ' + cls;
-      slide.innerHTML = (b.categoria ? '<div class="slide-label">' + b.categoria + '</div>' : '') + '<div class="slide-title">' + b.titulo + '</div><div class="slide-body">' + b.cuerpo + '</div>';
-      track.appendChild(slide);
-      var dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Aviso ' + (i + 1));
-      dot.onclick = (function(idx) { return function() { goToSlide(idx); }; })(i);
-      dots.appendChild(dot);
-    });
-    carouselTotal = banners.length;
-    document.getElementById('carousel-section').style.display = '';
-    initCarouselEvents();
-    startCarousel();
+    renderCarousel((banners && banners.length) ? banners : BANNERS_FALLBACK);
   })
-  .catch(function() { /* sin banners: la sección permanece oculta */ });
+  .catch(function() {
+    renderCarousel(BANNERS_FALLBACK);
+  });
 
 // ============================================
 // CARRUSEL DE FOTOS (SECCIÓN BIO)
